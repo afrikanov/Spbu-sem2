@@ -8,8 +8,7 @@ public class Stack {
 
     /**
      * Method adds an element to the end.
-     *
-     * @param value
+     * @param value - value of a new element
      */
     public void push(int value) {
         head = new Node(value, head);
@@ -25,6 +24,10 @@ public class Stack {
         size--;
     }
 
+    /**
+     * Method gets an element from the top of stack
+     * @return value from the top
+     */
     public int top() {
         return head.value;
     }
