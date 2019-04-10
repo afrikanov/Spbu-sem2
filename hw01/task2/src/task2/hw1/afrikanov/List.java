@@ -8,8 +8,8 @@ public class List {
 
     /**
      * Method adds a new node after certain.
-     * @param item
-     * @param newItem
+     * @param item - a node after which method adds a new node
+     * @param newItem - a new node
      */
     public void insertAfter(Node item, Node newItem) {
         newItem.next = item.next;
@@ -19,7 +19,7 @@ public class List {
 
     /**
      * Method removes a node after certain.
-     * @param item
+     * @param item - a node after which method removes a node
      */
     public void removeAfter(Node item) {
         if (item.next != null) {
@@ -42,7 +42,7 @@ public class List {
 
     /**
      * Method searches a node with certain value.
-     * @param value
+     * @param value - the value of a node which the method should find
      * @return Found node or null if it doesn't exist.
      */
     public Node search(int value) {
