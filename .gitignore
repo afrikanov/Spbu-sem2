@@ -1,5 +1,11 @@
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+
 # Compiled class file
 *.class
+*.kotlin_module
 
 # Log file
 *.log
