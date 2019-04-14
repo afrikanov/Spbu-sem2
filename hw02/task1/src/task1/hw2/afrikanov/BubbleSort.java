@@ -1,8 +1,9 @@
 package task1.hw2.afrikanov;
 
+/**
+ * Class implements Bubble sort technique
+ */
 public class BubbleSort implements Sort {
-
-    int left, right;
 
     @Override
     public void sort(int[] a, int left, int right) {
@@ -15,11 +16,17 @@ public class BubbleSort implements Sort {
         }
     }
 
-    private void swap(int[] a, int first, int second) {
-        if (first == second)
+    /**
+     * Method swaps valued of 2 elements with certain positions
+     * @param a - array with elements
+     * @param firstIndex - position of the first element
+     * @param secondIndex - position of the second element
+     */
+    private void swap(int[] a, int firstIndex, int secondIndex) {
+        if (firstIndex == secondIndex)
             return;
-        a[first] = a[first] + a[second];
-        a[second] = a[first] - a[second];
-        a[first] = a[first] - a[second];
+        a[firstIndex] = a[firstIndex] + a[secondIndex];
+        a[secondIndex] = a[firstIndex] - a[secondIndex];
+        a[firstIndex] = a[firstIndex] - a[secondIndex];
     }
 }
