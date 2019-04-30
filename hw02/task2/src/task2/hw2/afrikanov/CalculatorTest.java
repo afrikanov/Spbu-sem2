@@ -1,14 +1,13 @@
 package task2.hw2.afrikanov;
 
 import org.junit.jupiter.api.Test;
-import task2.hw2.afrikanov.Calculator;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CalculatorTest {
 
     @Test
-    void countSmallTest() {
+    void countSmallTest() throws FullStackException, EmptyStackException {
         int current = 25;
         String actualString = "5 2 3 + *";
         Calculator getAnswer = new Calculator();
@@ -17,7 +16,7 @@ class CalculatorTest {
     }
 
     @Test
-    void countMiddleTest() {
+    void countMiddleTest() throws FullStackException, EmptyStackException {
         int current = 2;
         String actualString = "50 5 2 3 + * /";
         Calculator getAnswer = new Calculator();
@@ -26,7 +25,7 @@ class CalculatorTest {
     }
 
     @Test
-    void countBigTest() {
+    void countBigTest() throws FullStackException, EmptyStackException {
         int current = 5;
         String actualString = "7 50 5 2 3 + * / -";
         Calculator getAnswer = new Calculator();

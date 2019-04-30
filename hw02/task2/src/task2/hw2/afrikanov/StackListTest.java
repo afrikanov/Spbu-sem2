@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class StackListTest {
 
     @Test
-    void top() {
+    void top() throws FullStackException {
         int current = 5;
         Stack stack = new StackList();
         stack.push(7);
@@ -17,23 +17,23 @@ class StackListTest {
     }
 
     @Test
-    void size() {
+    void size() throws FullStackException {
         int current = 3;
         Stack stack = new StackList();
         stack.push(7);
         stack.push(8);
         stack.push(5);
-        assertEquals(stack.size(), current);
+        assertEquals(stack.getSize(), current);
     }
 
     @Test
-    void empty() {
+    void empty() throws FullStackException, EmptyStackException {
         int current = 5;
         Stack stack = new StackList();
         stack.push(7);
         stack.pop();
         stack.push(5);
         stack.pop();
-        assertEquals(stack.empty(), true);
+        assertEquals(stack.isEmpty(), true);
     }
 }

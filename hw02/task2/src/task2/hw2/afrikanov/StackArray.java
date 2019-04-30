@@ -1,51 +1,51 @@
 package task2.hw2.afrikanov;
 
-public class StackArray implements Stack{
+public class StackArray<Type> implements Stack<Type> {
 
-    final int MAXN = (int)1e5;
-    private int[] stack = new int[MAXN];
-    private int top = 0;
+    private final int MAX_SIZE = (int)1e5;
+    private Type[] stack = (Type[]) new Object[MAX_SIZE];
+    private Type top = null;
     private int size = 0;
 
     @Override
-    public void push(int value) {
+    public void push(Type value) throws FullStackException {
+        if (size == MAX_SIZE) {
+            throw new FullStackException();
+        }
         stack[size] = value;
         top = value;
         size++;
     }
 
     @Override
-    public void pop() {
-        if (empty()) {
-            return;
+    public Type pop() throws EmptyStackException {
+        if (isEmpty()) {
+            throw new EmptyStackException();
         }
         size--;
-        stack[size] = 0;
-        if (size > 0) {
-            top = stack[size - 1];
-        }
-        else {
-            top = -1;
-        }
+        Type previousTop = stack[size];
+        stack[size] = null;
+        top = (size > 0 ? stack[size - 1] : null);
+        return previousTop;
     }
 
     @Override
-    public int size() {
+    public int getSize() {
         return size;
     }
 
     @Override
-    public int top() {
+    public Type top() {
         if (size != 0) {
             return stack[size - 1];
         }
-        else  {
-            return -1;
+        else {
+            return null;
         }
     }
 
     @Override
-    public boolean empty() {
+    public boolean isEmpty() {
         return size == 0;
     }
 }
