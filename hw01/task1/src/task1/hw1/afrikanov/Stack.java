@@ -1,6 +1,6 @@
 package task1.hw1.afrikanov;
 
-/** * Class implements methods of Stack. */
+/** Class implements methods of Stack. */
 public class Stack<Type> {
 
     private Node head = null;
