@@ -1,18 +1,17 @@
 package group144.afrikanov;
 
-import java.sql.Types;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
  * Class realizes the AVL Tree iterator of a type
  *
- * @param <Type> Type you want to use in your AVL Tree
+ * @param <T> Type you want to use in your AVL Tree
  */
-public class TreeIterator <Type extends Comparable<Type>> implements Iterator<Type> {
-    private AVLTree<Type>.Node<Type> next;
+public class TreeIterator <T extends Comparable<T>> implements Iterator<T> {
+    private AVLTree<T>.Node<T> next;
 
-    TreeIterator(AVLTree<Type>.Node<Type> node) {
+    TreeIterator(AVLTree<T>.Node<T> node) {
         next = node;
         if (next == null) {
             return;
@@ -28,30 +27,27 @@ public class TreeIterator <Type extends Comparable<Type>> implements Iterator<Ty
     }
 
     @Override
-    public Type next() {
+    public T next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        AVLTree<Type>.Node<Type> currentNode = next;
+        AVLTree<T>.Node<T> currentNode = next;
         if (next.getRightNode() != null) {
             next = next.getRightNode();
             while (next.getLeftNode() != null) {
                 next = next.getLeftNode();
             }
             return currentNode.getKey();
-        }
-        else {
+        } else {
             while (true) {
                 if (next.getParent() == null) {
                     next = null;
                     return currentNode.getKey();
-                }
-                else {
+                } else {
                     if (next.getParent().getLeftNode() == next) {
                         next = next.getParent();
                         return currentNode.getKey();
-                    }
-                    else {
+                    } else {
                         next = next.getParent();
                     }
                 }
