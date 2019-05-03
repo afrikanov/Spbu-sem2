@@ -1,7 +1,7 @@
 package group144.afrikanov;
 
-class ValueAlreadyExistsException extends Exception {
-    ValueAlreadyExistsException() {
+public class ValueAlreadyExistsException extends RuntimeException {
+    public ValueAlreadyExistsException() {
         super("Value already exists");
     }
 }

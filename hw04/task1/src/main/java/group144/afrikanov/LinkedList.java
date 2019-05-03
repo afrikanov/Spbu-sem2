@@ -1,22 +1,36 @@
 package group144.afrikanov;
 
-/** * Class implements methods of a list. */
+import java.io.IOException;
+
+/** Class implements methods of a list. */
 public class LinkedList<T> {
 
-    Node head = null, tail = null;
+    private Node<T> head = null, tail = null;
     private int size = 0;
+
+    public int getSize() {
+        return size;
+    }
 
     /**
      * Method adds a new node after certain.
      * @param item - node after which new item should be
      * @param value - value which is need to add
      */
-    public void insertAfter(Node item, T value) throws ValueAlreadyExistsException {
-        Node newItem = new Node(value, null, null);
-        newItem.next = item.next;
-        newItem.previous = item;
+    public void insertAfter(Node<T> item, T value) throws InvalidInputNode {
+        if (item == null) {
+            if (head == null) {
+                insertBack(value);
+                return;
+            } else {
+                throw new InvalidInputNode();
+            }
+        }
+        Node<T> newItem = new Node<>(value, item.next, item);
         item.next = newItem;
-        newItem.next.previous = newItem;
+        if (newItem.next != null) {
+            newItem.next.previous = newItem;
+        }
         size++;
     }
 
@@ -24,15 +38,12 @@ public class LinkedList<T> {
      * Method inserts an element after all other
      * @param value - value which is need to add
      */
-    public void insertBack(T value) throws ValueAlreadyExistsException {
-        Node newItem = new Node(value, null, null);
-        if (tail == null) {
-            head = tail = newItem;
-        }
-        else {
-            tail.next = newItem;
-            newItem.previous = tail;
-            tail = newItem;
+    public void insertBack(T value) {
+        tail = new Node<T>(value, null, tail);
+        if (head == null) {
+            head = tail;
+        } else {
+            tail.previous.next = tail;
         }
         ++size;
     }
@@ -41,15 +52,12 @@ public class LinkedList<T> {
      * Method inserts an element before all other
      * @param value - value which is need to add
      */
-    public void insertFront(T value) throws ValueAlreadyExistsException {
-        Node newItem = new Node(value, null, null);
-        if (head == null) {
-            head = tail = newItem;
-        }
-        else {
-            head.previous = newItem;
-            newItem.next = head;
-            head = newItem;
+    public void insertFront(T value) {
+        head = new Node<>(value, head, null);
+        if (tail == null) {
+            tail = head;
+        } else {
+            head.next.previous = head;
         }
         ++size;
     }
@@ -58,20 +66,23 @@ public class LinkedList<T> {
      * Method removes a node after certain.
      * @param item - node which should be removed
      */
-    public void removeNode(Node item) {
+    public void removeNode(Node<T> item) {
         item.previous.next = item.next;
         item.next.previous = item.previous;
+        --size;
     }
 
     /**
      * Method removes the first node with certain value.
      * @param value - value which is need to add
+     * @throws ValueNotFoundException when the value is not found
      */
     public void removeByValue(T value) throws ValueNotFoundException {
-        Node certainNode = search(value);
+        Node<T> certainNode = search(value);
         if (certainNode != null) {
-            certainNode.previous.next = certainNode.next;
-            certainNode.next.previous = certainNode.previous;
+            removeNode(certainNode);
+        } else {
+            throw new ValueNotFoundException();
         }
     }
 
@@ -79,15 +90,14 @@ public class LinkedList<T> {
      * Method removes a head of a list.
      * @throws ValueNotFoundException when the value is not found
      */
-    void removeHead() throws ValueNotFoundException {
+    public void removeHead() throws ValueNotFoundException {
         if (head != null) {
             head = head.next;
             if (head != null) {
                 head.previous = null;
             }
             --size;
-        }
-        else {
+        } else {
             throw new ValueNotFoundException();
         }
     }
@@ -96,20 +106,19 @@ public class LinkedList<T> {
      * Method removes a tail of a list.
      * @throws ValueNotFoundException when the value is not found
      */
-    void removeTail() throws ValueNotFoundException {
+    public void removeTail() throws ValueNotFoundException {
         if (tail != null) {
             tail = tail.previous;
             if (tail != null) {
                 tail.next = null;
             }
             --size;
-        }
-        else {
+        } else {
             throw new ValueNotFoundException();
         }
     }
 
-    boolean empty() {
+    public boolean isEmpty() {
         return size == 0;
     }
 
@@ -118,16 +127,11 @@ public class LinkedList<T> {
      * @return current value
      * @throws IndexOutOfBoundsException when index is out of bounds
      */
-    T getValueByIndex(int index) throws IndexOutOfBoundsException {
+    public T getValueByIndex(int index) throws IndexOutOfBoundsException {
         if ((index >= size) || (index < 0)) {
             throw new IndexOutOfBoundsException();
-        }
-        else {
-            Node result = head;
-            for (int i = 0; i < index; ++i) {
-                result = result.next;
-            }
-            return result.value;
+        } else {
+            return getNodeByIndex(index).value;
         }
     }
 
@@ -136,12 +140,11 @@ public class LinkedList<T> {
      * @return current Node
      * @throws IndexOutOfBoundsException when index is out of bounds
      */
-    public Node getNodeByIndex(int index) throws IndexOutOfBoundsException{
+    public Node<T> getNodeByIndex(int index) throws IndexOutOfBoundsException {
         if ((index >= size) || (index < 0)) {
             throw new IndexOutOfBoundsException();
-        }
-        else {
-            Node result = head;
+        } else {
+            Node<T> result = head;
             for (int i = 0; i < index; ++i) {
                 result = result.next;
             }
@@ -154,22 +157,22 @@ public class LinkedList<T> {
      * @param value we want to find
      * @return Found node or null if it doesn't exist.
      */
-    Node search(T value) {
-        Node item = head;
+    public Node<T> search(T value) {
+        Node<T> item = head;
         while (item != null && value != item.value) {
             item = item.next;
         }
         return item;
     }
 
-    /** * Class implements structure with 2 fields : value and link on the next element. */
-    class Node {
+    /** Class implements structure with 2 fields : value and link on the next element. */
+    public class Node<T> {
 
-        T value;
-        Node next;
-        private Node previous;
+        public T value;
+        public Node<T> next;
+        public Node<T> previous;
 
-        Node(T value, Node next, Node previous) {
+        Node(T value, Node<T> next, Node<T> previous) {
             this.value = value;
             this.next = next;
             this.previous = previous;

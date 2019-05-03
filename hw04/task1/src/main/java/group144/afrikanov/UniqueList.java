@@ -1,5 +1,8 @@
 package group144.afrikanov;
 
+import java.io.IOException;
+
+/** Class implements methods of a list without equal elements. */
 public class UniqueList<T> extends LinkedList<T> {
 
     /**
@@ -9,11 +12,10 @@ public class UniqueList<T> extends LinkedList<T> {
      * @throws ValueAlreadyExistsException when the value already exists
      */
     @Override
-    public void insertAfter(Node item, T value) throws ValueAlreadyExistsException {
-        if (super.search(value) != null) {
+    public void insertAfter(Node<T> item, T value) throws InvalidInputNode, ValueAlreadyExistsException {
+        if (super.search(value) == null) {
             super.insertAfter(item, value);
-        }
-        else {
+        } else {
             throw new ValueAlreadyExistsException();
         }
     }
@@ -25,10 +27,9 @@ public class UniqueList<T> extends LinkedList<T> {
      */
     @Override
     public void insertBack(T value) throws ValueAlreadyExistsException {
-        if (super.search(value) != null) {
+        if (search(value) == null) {
             super.insertBack(value);
-        }
-        else {
+        } else {
             throw new ValueAlreadyExistsException();
         }
     }
@@ -36,30 +37,13 @@ public class UniqueList<T> extends LinkedList<T> {
     /**
      * Method inserts an element before all other
      * @param value - value which is need to add
-     * @throws ValueAlreadyExistsException when the value is already exists
      */
     @Override
     public void insertFront(T value) throws ValueAlreadyExistsException {
-        if (super.search(value) != null) {
+        if (super.search(value) == null) {
             super.insertFront(value);
-        }
-        else {
+        } else {
             throw new ValueAlreadyExistsException();
-        }
-    }
-
-    /**
-     * Method removes the first node with certain value.
-     * @param value - value which is need to add
-     * @throws ValueNotFoundException when the value is not found
-     */
-    @Override
-    public void removeByValue(T value) throws ValueNotFoundException {
-        if (super.search(value) != null) {
-            super.removeByValue(value);
-        }
-        else {
-            throw new ValueNotFoundException();
         }
     }
 }

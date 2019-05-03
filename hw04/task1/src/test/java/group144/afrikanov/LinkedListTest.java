@@ -4,14 +4,24 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LinkedListTest<T> {
+class LinkedListTest {
+
+    @Test
+    void insertTest() throws IndexOutOfBoundsException, ValueAlreadyExistsException {
+        LinkedList<Integer> list = new LinkedList<>();
+        list.insertBack(5);
+        assertEquals(5, (int)list.getValueByIndex(0));
+        list.insertFront(4);
+        assertEquals(4, (int)list.getValueByIndex(0));
+    }
 
     @Test
     void emptyTest() throws ValueAlreadyExistsException, ValueNotFoundException {
-        LinkedList<Integer> list = new LinkedList<>();
-        list.insertBack(5);
+        LinkedList<Character> list = new LinkedList<>();
+        list.insertBack('5');
+        assertFalse(list.isEmpty());
         list.removeHead();
-        assertEquals(true, list.empty());
+        assertTrue(list.isEmpty());
     }
 
     @Test
@@ -20,7 +30,6 @@ class LinkedListTest<T> {
         list.insertBack(1);
         list.insertBack(2);
         list.insertFront(3);
-        System.out.println(list.head.value);
         assertEquals((Integer)3, list.getValueByIndex(0));
     }
 

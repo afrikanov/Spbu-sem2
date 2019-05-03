@@ -1,7 +1,7 @@
 package group144.afrikanov;
 
-class IndexOutOfBoundsException extends Exception {
-    IndexOutOfBoundsException() {
+public class IndexOutOfBoundsException extends RuntimeException {
+    public IndexOutOfBoundsException() {
         super("Index out of bounds");
     }
 }
