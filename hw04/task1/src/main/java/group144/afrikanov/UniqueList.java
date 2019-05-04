@@ -10,6 +10,7 @@ public class UniqueList<T> extends LinkedList<T> {
      * @param item - node after which new item should be
      * @param value - value which is need to add
      * @throws ValueAlreadyExistsException when the value already exists
+     * @throws InvalidInputNode when the node after which you want to insert is equal to null
      */
     @Override
     public void insertAfter(Node<T> item, T value) throws InvalidInputNode, ValueAlreadyExistsException {
@@ -27,7 +28,7 @@ public class UniqueList<T> extends LinkedList<T> {
      */
     @Override
     public void insertBack(T value) throws ValueAlreadyExistsException {
-        if (search(value) == null) {
+        if (super.search(value) == null) {
             super.insertBack(value);
         } else {
             throw new ValueAlreadyExistsException();

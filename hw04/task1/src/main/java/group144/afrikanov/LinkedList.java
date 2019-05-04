@@ -16,15 +16,11 @@ public class LinkedList<T> {
      * Method adds a new node after certain.
      * @param item - node after which new item should be
      * @param value - value which is need to add
+     * @throws InvalidInputNode when the node after which you want to insert is equal to null
      */
     public void insertAfter(Node<T> item, T value) throws InvalidInputNode {
         if (item == null) {
-            if (head == null) {
-                insertBack(value);
-                return;
-            } else {
-                throw new InvalidInputNode();
-            }
+            throw new InvalidInputNode();
         }
         Node<T> newItem = new Node<>(value, item.next, item);
         item.next = newItem;
@@ -45,7 +41,7 @@ public class LinkedList<T> {
         } else {
             tail.previous.next = tail;
         }
-        ++size;
+        size++;
     }
 
     /**
@@ -59,7 +55,7 @@ public class LinkedList<T> {
         } else {
             head.next.previous = head;
         }
-        ++size;
+        size++;
     }
 
     /**
@@ -69,7 +65,7 @@ public class LinkedList<T> {
     public void removeNode(Node<T> item) {
         item.previous.next = item.next;
         item.next.previous = item.previous;
-        --size;
+        size--;
     }
 
     /**
@@ -96,7 +92,7 @@ public class LinkedList<T> {
             if (head != null) {
                 head.previous = null;
             }
-            --size;
+            size--;
         } else {
             throw new ValueNotFoundException();
         }
@@ -112,7 +108,7 @@ public class LinkedList<T> {
             if (tail != null) {
                 tail.next = null;
             }
-            --size;
+            size--;
         } else {
             throw new ValueNotFoundException();
         }
@@ -145,7 +141,7 @@ public class LinkedList<T> {
             throw new IndexOutOfBoundsException();
         } else {
             Node<T> result = head;
-            for (int i = 0; i < index; ++i) {
+            for (int i = 0; i < index; i++) {
                 result = result.next;
             }
             return result;
