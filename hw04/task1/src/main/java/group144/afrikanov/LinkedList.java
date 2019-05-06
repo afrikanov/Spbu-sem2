@@ -5,7 +5,8 @@ import java.io.IOException;
 /** Class implements methods of a list. */
 public class LinkedList<T> {
 
-    private Node<T> head = null, tail = null;
+    private Node<T> head = null;
+    private Node<T> tail = null;
     private int size = 0;
 
     public int getSize() {
@@ -20,7 +21,7 @@ public class LinkedList<T> {
      */
     public void insertAfter(Node<T> item, T value) throws InvalidInputNode {
         if (item == null) {
-            throw new InvalidInputNode();
+            throw new InvalidInputNode("invalid input node");
         }
         Node<T> newItem = new Node<>(value, item.next, item);
         item.next = newItem;
@@ -78,7 +79,7 @@ public class LinkedList<T> {
         if (certainNode != null) {
             removeNode(certainNode);
         } else {
-            throw new ValueNotFoundException();
+            throw new ValueNotFoundException("value not found");
         }
     }
 
@@ -94,7 +95,7 @@ public class LinkedList<T> {
             }
             size--;
         } else {
-            throw new ValueNotFoundException();
+            throw new ValueNotFoundException("value not found");
         }
     }
 
@@ -110,7 +111,7 @@ public class LinkedList<T> {
             }
             size--;
         } else {
-            throw new ValueNotFoundException();
+            throw new ValueNotFoundException("value not found");
         }
     }
 
@@ -125,10 +126,9 @@ public class LinkedList<T> {
      */
     public T getValueByIndex(int index) throws IndexOutOfBoundsException {
         if ((index >= size) || (index < 0)) {
-            throw new IndexOutOfBoundsException();
-        } else {
-            return getNodeByIndex(index).value;
+            throw new IndexOutOfBoundsException("index is out of bounds");
         }
+        return getNodeByIndex(index).value;
     }
 
     /**
@@ -138,14 +138,13 @@ public class LinkedList<T> {
      */
     public Node<T> getNodeByIndex(int index) throws IndexOutOfBoundsException {
         if ((index >= size) || (index < 0)) {
-            throw new IndexOutOfBoundsException();
-        } else {
-            Node<T> result = head;
-            for (int i = 0; i < index; i++) {
-                result = result.next;
-            }
-            return result;
+            throw new IndexOutOfBoundsException("index is out of bounds");
         }
+        Node<T> result = head;
+        for (int i = 0; i < index; i++) {
+            result = result.next;
+        }
+        return result;
     }
 
     /**
@@ -162,13 +161,13 @@ public class LinkedList<T> {
     }
 
     /** Class implements structure with 2 fields : value and link on the next element. */
-    public class Node<T> {
+    protected class Node<Type> {
 
-        public T value;
-        public Node<T> next;
-        public Node<T> previous;
+        private Type value;
+        private Node<Type> next;
+        private Node<Type> previous;
 
-        Node(T value, Node<T> next, Node<T> previous) {
+        Node(Type value, Node<Type> next, Node<Type> previous) {
             this.value = value;
             this.next = next;
             this.previous = previous;

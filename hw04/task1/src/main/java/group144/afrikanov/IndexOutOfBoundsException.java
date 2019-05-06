@@ -1,7 +1,10 @@
 package group144.afrikanov;
 
-public class IndexOutOfBoundsException extends RuntimeException {
-    public IndexOutOfBoundsException() {
-        super("Index out of bounds");
+/**
+ * Class realizes an exception which throws if the index is out of bounds
+ */
+public class IndexOutOfBoundsException extends Exception {
+    public IndexOutOfBoundsException(String exceptionText) {
+        super(exceptionText);
     }
 }

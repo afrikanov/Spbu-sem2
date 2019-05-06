@@ -1,7 +1,10 @@
 package group144.afrikanov;
 
-public class InvalidInputNode extends RuntimeException {
-    public InvalidInputNode() {
-        super("Invalid input node");
+/**
+ * Class realizes an exception which throws if the input node is wrong
+ */
+public class InvalidInputNode extends Exception {
+    public InvalidInputNode(String exceptionText) {
+        super(exceptionText);
     }
 }

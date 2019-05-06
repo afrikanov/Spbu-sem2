@@ -17,7 +17,7 @@ public class UniqueList<T> extends LinkedList<T> {
         if (super.search(value) == null) {
             super.insertAfter(item, value);
         } else {
-            throw new ValueAlreadyExistsException();
+            throw new ValueAlreadyExistsException("value already exists");
         }
     }
 
@@ -31,7 +31,7 @@ public class UniqueList<T> extends LinkedList<T> {
         if (super.search(value) == null) {
             super.insertBack(value);
         } else {
-            throw new ValueAlreadyExistsException();
+            throw new ValueAlreadyExistsException("value already exists");
         }
     }
 
@@ -44,7 +44,7 @@ public class UniqueList<T> extends LinkedList<T> {
         if (super.search(value) == null) {
             super.insertFront(value);
         } else {
-            throw new ValueAlreadyExistsException();
+            throw new ValueAlreadyExistsException("value already exists");
         }
     }
 }

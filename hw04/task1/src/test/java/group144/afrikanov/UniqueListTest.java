@@ -24,8 +24,10 @@ class UniqueListTest {
     @Test
     void insertEqualAfter() throws ValueAlreadyExistsException, InvalidInputNode {
         UniqueList<Integer> list = new UniqueList<>();
-        list.insertAfter(null, 5);
-        LinkedList<Integer>.Node<Integer> nodeBefore = list.search(5);
+        list.insertFront(6);
+        LinkedList<Integer>.Node<Integer> nodeBefore = list.search(6);
+        list.insertAfter(nodeBefore, 5);
+        LinkedList<Integer>.Node<Integer> newNodeBefore = list.search(5);
         assertThrows(ValueAlreadyExistsException.class, () -> list.insertAfter(nodeBefore, 5));
     }
 }

@@ -39,7 +39,7 @@ class LinkedListTest {
         list.insertBack(1);
         list.insertBack(2);
         list.insertBack(3);
-        list.insertBack(3);
-        assertEquals((Integer)3, list.search(3).next.value);
+        assertNull(list.search(4));
+        assertNotNull(list.search(3));
     }
 }

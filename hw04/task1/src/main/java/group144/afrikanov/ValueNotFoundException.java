@@ -1,7 +1,10 @@
 package group144.afrikanov;
 
-public class ValueNotFoundException extends RuntimeException {
-    public ValueNotFoundException() {
-        super("Value not found");
+/**
+ * Class realizes an exception which throws if list does not contains the value
+ */
+public class ValueNotFoundException extends Exception {
+    public ValueNotFoundException(String exceptionText) {
+        super(exceptionText);
     }
 }
