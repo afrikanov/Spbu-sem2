@@ -11,18 +11,18 @@ class HashFunctionTest {
     @Test
     void testPolynomialHash() {
         HashFunction hashPolynomial = new PolynomialHashFunction();
-        assertEquals(hashPolynomial.hash("12", SIZE), 2941);
+        assertEquals(2941, hashPolynomial.hash("12", SIZE));
     }
 
     @Test
     void testXorHash() {
         HashFunction hashPolynomial = new XorHashFunction();
-        assertEquals(hashPolynomial.hash("9785", SIZE), 3);
+        assertEquals(3, hashPolynomial.hash("9785", SIZE));
     }
 
     @Test
     void testMultiplyHash() {
         HashFunction hashPolynomial = new MultiplyHashFunction();
-        assertEquals(hashPolynomial.hash("abc", SIZE), 41031);
+        assertEquals(41031, hashPolynomial.hash("abc", SIZE));
     }
 }

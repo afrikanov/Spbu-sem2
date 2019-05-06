@@ -10,12 +10,12 @@ class HashTable {
 
     private ArrayList<LinkedList<String>> table;
     private HashFunction hashFunction;
-    private int elementsAmount = 0, conflictsAmount = 0;
+    private final int SIZE = (int)1e5 + 7;
 
-    HashTable(HashFunction hash, int size) {
+    HashTable(HashFunction hash) {
         hashFunction = hash;
-        table = new ArrayList<>(size);
-        for (int i = 0; i < size; ++i) {
+        table = new ArrayList<>(SIZE);
+        for (int i = 0; i < SIZE; ++i) {
             table.add(new LinkedList<>());
         }
     }
@@ -24,13 +24,9 @@ class HashTable {
      * Method adds a hash of a certain string to the table
      * @param value - value needed to add
      */
-    void add(String value) {
-        int item = hashFunction.hash(value, table.size());
-        if (table.get(item).size() == 1) {
-            conflictsAmount++;
-        }
-        table.get(item).add(value);
-        elementsAmount++;
+    public void add(String value) {
+        int position = hashFunction.hash(value, SIZE);
+        table.get(position).add(value);
     }
 
     /**
@@ -38,46 +34,64 @@ class HashTable {
      * @param value - value needed to delete
      * @throws ValueNotFoundException if the value is not found
      */
-    void delete(String value) throws ValueNotFoundException {
-        int item = hashFunction.hash(value, table.size());
-        if (table.get(item).remove(value)) {
-            if (table.get(item).size() == 1) {
-                conflictsAmount--;
+    public void delete(String value) throws ValueNotFoundException {
+        int position = hashFunction.hash(value, SIZE);
+        for (var element : table.get(position)) {
+            if (element.equals(value)) {
+                table.get(position).remove(element);
+                return;
             }
-            elementsAmount--;
-        } else {
-            throw new ValueNotFoundException("Value not found.");
         }
+        throw new ValueNotFoundException("Value not found");
     }
 
     /**
      * Method that checks your value in a list
      * @param value - value should be checked that it is contained
      */
-    boolean contains(String value) {
+    public boolean contains(String value) {
         return table.get(hashFunction.hash(value, table.size())).contains(value);
     }
 
-    int getElementsAmount() {
-        return elementsAmount;
-    }
-
-    int getConflictsAmount() {
-        return conflictsAmount;
-    }
-
-    double loadFactor() {
-        return (double) getElementsAmount() / table.size();
-    }
-
-    /**
-     * @return answer - maximum of amounts of elements of the table with the same hashes
-     */
-    int getMaxListSize() {
+    /** @return amount of elements in hash table */
+    public int getElementsAmount() {
         int answer = 0;
-        for (int i = 0; i < table.size(); ++i) {
-            answer = Math.max(answer, table.get(i).size());
+        for (LinkedList<String> element : table) {
+            answer += element.size();
         }
         return answer;
+    }
+
+    /** @return amount of conflicts in hash table */
+    public int getConflictsAmount() {
+        int answer = 0;
+        for (LinkedList<String> element : table) {
+            if (element.size() >= 2) {
+                answer += element.size() - 1;
+            }
+        }
+        return answer;
+    }
+
+    public double loadFactor() {
+        return (double)getElementsAmount() / table.size();
+    }
+
+    /** @return answer - maximum of amounts of elements of the table with the same hashes */
+    public int getMaxListSize() {
+        int answer = 0;
+        for (LinkedList<String> element : table) {
+            answer = Math.max(answer, element.size());
+        }
+        return answer;
+    }
+
+    /** Method, which prints hash table parameters */
+    void printStatistics() {
+        System.out.println("Load factor : " + loadFactor());
+        System.out.println("Amount of values : " + getElementsAmount());
+        System.out.println("Amount of possible hashes : " + SIZE);
+        System.out.println("Amount of collisions : " + getConflictsAmount());
+        System.out.println("The biggest amount of strings with equal hashes : " + getMaxListSize());
     }
 }

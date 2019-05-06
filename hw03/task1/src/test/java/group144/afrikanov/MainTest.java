@@ -10,14 +10,14 @@ class MainTest {
 
     @Test
     void testAdding() {
-        HashTable hashTable = new HashTable(new PolynomialHashFunction(), SIZE);
+        HashTable hashTable = new HashTable(new PolynomialHashFunction());
         hashTable.add("123");
         assertTrue(hashTable.contains("123"));
     }
 
     @Test
     void testDeleting() throws Exception {
-        HashTable hashTable = new HashTable(new XorHashFunction(), SIZE);
+        HashTable hashTable = new HashTable(new XorHashFunction());
         hashTable.add("abc");
         hashTable.delete("abc");
         assertFalse(hashTable.contains("abc"));
@@ -25,7 +25,7 @@ class MainTest {
 
     @Test
     void testMaxLength() {
-        HashTable hashTable = new HashTable(new MultiplyHashFunction(), SIZE);
+        HashTable hashTable = new HashTable(new MultiplyHashFunction());
         hashTable.add("Hello");
         hashTable.add("Hello");
         hashTable.add("Hello");
