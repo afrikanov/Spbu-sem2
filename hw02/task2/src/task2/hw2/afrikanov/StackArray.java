@@ -4,7 +4,7 @@ package task2.hw2.afrikanov;
 public class StackArray<Type> implements Stack<Type> {
 
     private final int MAX_SIZE = (int)1e5;
-    private Object[] stack = (Type[]) new Object[MAX_SIZE];
+    private Type[] stack = (Type[]) new Object[MAX_SIZE];
     private Type top = null;
     private int size = 0;
 
@@ -24,9 +24,9 @@ public class StackArray<Type> implements Stack<Type> {
             throw new EmptyStackException("The stack is empty");
         }
         size--;
-        Type previousTop = (Type)stack[size];
+        Type previousTop = stack[size];
         stack[size] = null;
-        top = (size > 0 ? (Type)stack[size - 1] : null);
+        top = (size > 0 ? stack[size - 1] : null);
         return previousTop;
     }
 
