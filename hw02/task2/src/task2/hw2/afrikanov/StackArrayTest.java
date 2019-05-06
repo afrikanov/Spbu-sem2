@@ -2,38 +2,53 @@ package task2.hw2.afrikanov;
 
 import org.junit.jupiter.api.Test;
 
+import java.net.Inet4Address;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class StackArrayTest {
 
     @Test
-    void top() throws FullStackException {
-        int current = 5;
-        Stack stack = new StackArray();
-        stack.push(7);
-        stack.push(8);
-        stack.push(5);
-        assertEquals(stack.top(), current);
+    void fullStackTest() throws FullStackException {
+        Stack<Character> stack = new StackArray<>();
+        for (int i = 0; i < (int)1e5; ++i) {
+            stack.push('a');
+        }
+        assertThrows(FullStackException.class, () -> stack.push('b'));
     }
 
     @Test
-    void size() throws FullStackException {
-        int current = 3;
-        Stack stack = new StackArray();
-        stack.push(7);
-        stack.push(8);
-        stack.push(5);
-        assertEquals(stack.getSize(), current);
+    void emptyStackTest() throws EmptyStackException {
+        Stack<Boolean> stack = new StackArray<>();
+        assertThrows(EmptyStackException.class, () -> stack.pop());
     }
 
     @Test
-    void empty() throws FullStackException, EmptyStackException {
+    void topTest() throws FullStackException {
+        Stack<Integer> stack = new StackArray<>();
+        stack.push(7);
+        stack.push(8);
+        stack.push(5);
+        assertEquals(5, stack.getTop());
+    }
+
+    @Test
+    void sizeTest() throws FullStackException {
+        Stack<Integer> stack = new StackArray<>();
+        stack.push(7);
+        stack.push(8);
+        stack.push(5);
+        assertEquals(3, stack.getSize());
+    }
+
+    @Test
+    void emptyTest() throws FullStackException, EmptyStackException {
         int current = 5;
-        Stack stack = new StackArray();
+        Stack<Integer> stack = new StackArray<>();
         stack.push(7);
         stack.pop();
         stack.push(5);
         stack.pop();
-        assertEquals(stack.isEmpty(), true);
+        assertTrue(stack.isEmpty());
     }
 }

@@ -12,24 +12,22 @@ class CalculatorTest {
         String actualString = "5 2 3 + *";
         Calculator getAnswer = new Calculator();
         int actual = getAnswer.count(actualString);
-        assertEquals(actual, current);
+        assertEquals(25, actual);
     }
 
     @Test
     void countMiddleTest() throws FullStackException, EmptyStackException {
-        int current = 2;
         String actualString = "50 5 2 3 + * /";
         Calculator getAnswer = new Calculator();
         int actual = getAnswer.count(actualString);
-        assertEquals(actual, current);
+        assertEquals(2, actual);
     }
 
     @Test
     void countBigTest() throws FullStackException, EmptyStackException {
-        int current = 5;
         String actualString = "7 50 5 2 3 + * / -";
         Calculator getAnswer = new Calculator();
         int actual = getAnswer.count(actualString);
-        assertEquals(actual, current);
+        assertEquals(5, actual);
     }
 }

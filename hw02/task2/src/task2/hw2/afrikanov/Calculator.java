@@ -7,6 +7,8 @@ public class Calculator {
      * Method counts the expression value
      * @param inputString - string with an expression
      * @return the result of an expression
+     * @throws FullStackException if the stack is full
+     * @throws EmptyStackException if the stack is empty
      */
     public int count(String inputString) throws FullStackException, EmptyStackException {
         Stack<Integer> stack = new StackList<>();
@@ -26,26 +28,26 @@ public class Calculator {
                 stack.push(Integer.parseInt(newInteger.toString()));
                 continue;
             }
-            int value = stack.top();
+            int value = stack.getTop();
             stack.pop();
             switch (strVal) {
                 case '+':
-                    value += stack.top();
+                    value += stack.getTop();
                     break;
                 case '*':
-                    value *= stack.top();
+                    value *= stack.getTop();
                     break;
                 case '-':
-                    value -= stack.top();
+                    value -= stack.getTop();
                     value *= -1;
                     break;
                 case '/':
-                    value = stack.top() / value;
+                    value = stack.getTop() / value;
                     break;
             }
             stack.pop();
             stack.push(value);
         }
-        return stack.top();
+        return stack.getTop();
     }
 }

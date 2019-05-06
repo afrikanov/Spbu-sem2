@@ -1,20 +1,21 @@
 package task2.hw2.afrikanov;
 
+/** Class implements a stack basing on a list */
 public class StackList<Type> implements Stack<Type> {
 
-    private Node head = null;
+    private Node<Type> head = null;
     private int size = 0;
 
     @Override
     public void push(Type value) {
-        head = new Node(value, head);
+        head = new Node<>(value, head);
         size++;
     }
 
     @Override
     public Type pop() throws EmptyStackException {
         if (isEmpty()) {
-            throw new EmptyStackException();
+            throw new EmptyStackException("The stack is empty");
         }
         Type previousTop = head.value;
         head = head.next;
@@ -23,7 +24,7 @@ public class StackList<Type> implements Stack<Type> {
     }
 
     @Override
-    public Type top() {
+    public Type getTop() {
         return head == null ? null : head.value;
     }
 
@@ -38,11 +39,11 @@ public class StackList<Type> implements Stack<Type> {
     }
 
     /* Class implements structure with 2 fields : value and link on the next element. */
-    private class Node {
+    private class Node<T> {
         private Type value;
-        private Node next;
+        private Node<T> next;
 
-        Node(Type value, Node next) {
+        Node(Type value, Node<T> next) {
             this.value = value;
             this.next = next;
         }

@@ -7,33 +7,36 @@ import static org.junit.jupiter.api.Assertions.*;
 class StackListTest {
 
     @Test
-    void top() throws FullStackException {
-        int current = 5;
-        Stack stack = new StackList();
-        stack.push(7);
-        stack.push(8);
-        stack.push(5);
-        assertEquals(stack.top(), current);
+    void emptyStackTest() throws EmptyStackException {
+        Stack<Boolean> stack = new StackList<>();
+        assertThrows(EmptyStackException.class, () -> stack.pop());
     }
 
     @Test
-    void size() throws FullStackException {
-        int current = 3;
-        Stack stack = new StackList();
+    void topTest() throws FullStackException {
+        Stack<Integer> stack = new StackList<>();
         stack.push(7);
         stack.push(8);
         stack.push(5);
-        assertEquals(stack.getSize(), current);
+        assertEquals(5, stack.getTop());
     }
 
     @Test
-    void empty() throws FullStackException, EmptyStackException {
-        int current = 5;
-        Stack stack = new StackList();
+    void sizeTest() throws FullStackException {
+        Stack<Integer> stack = new StackList<>();
+        stack.push(7);
+        stack.push(8);
+        stack.push(5);
+        assertEquals(3, stack.getSize());
+    }
+
+    @Test
+    void emptyTest() throws FullStackException, EmptyStackException {
+        Stack<Integer> stack = new StackList<>();
         stack.push(7);
         stack.pop();
         stack.push(5);
         stack.pop();
-        assertEquals(stack.isEmpty(), true);
+        assertTrue(stack.isEmpty());
     }
 }
