@@ -13,6 +13,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/group144.afrikanov/sample.fxml"));
         primaryStage.setTitle("Slider and ProgressBar");
         primaryStage.setScene(new Scene(root));
+        primaryStage.setMinHeight(200);
+        primaryStage.setMinWidth(200);
         primaryStage.show();
     }
 
