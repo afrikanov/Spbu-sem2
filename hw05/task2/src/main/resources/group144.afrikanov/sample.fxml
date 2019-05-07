@@ -6,16 +6,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="314.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="group144.afrikanov.Controller">
+<AnchorPane maxHeight="200" maxWidth="413.0" minHeight="100" minWidth="100" prefHeight="100.0" prefWidth="413.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="group144.afrikanov.Controller">
    <children>
-      <ChoiceBox fx:id="operator" layoutX="96.0" layoutY="37.0" prefHeight="25.0" prefWidth="53.0" />
-      <Spinner fx:id="firstOperand" layoutX="9.0" layoutY="37.0" prefHeight="25.0" prefWidth="75.0" />
-      <Spinner fx:id="secondOperand" layoutX="157.0" layoutY="37.0" prefHeight="25.0" prefWidth="75.0" />
-      <Label fx:id="equalOperator" layoutX="240.0" layoutY="41.0" text="=" />
-      <Label fx:id="result" layoutX="255.0" layoutY="33.0" prefHeight="34.0" prefWidth="69.0" text="0" textAlignment="RIGHT">
+      <Label fx:id="equalOperator" layoutX="316.0" layoutY="37.0" prefHeight="25.0" prefWidth="33.0" text="=" AnchorPane.bottomAnchor="38.0" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="37.0" />
+      <Label fx:id="result" layoutX="349.0" layoutY="33.0" prefHeight="34.0" prefWidth="53.0" text="0" textAlignment="RIGHT" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="10.666666666666686" AnchorPane.topAnchor="33.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
+      <ChoiceBox fx:id="operator" layoutX="129.0" layoutY="38.0" minHeight="25.0" minWidth="45.0" prefHeight="25.0" prefWidth="64.0" AnchorPane.bottomAnchor="36.66666666666667" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="38.0" />
+      <Spinner fx:id="firstOperand" layoutX="28.0" layoutY="37.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="87.0" AnchorPane.bottomAnchor="37.66666666666667" AnchorPane.rightAnchor="297.6666666666667" AnchorPane.topAnchor="37.0" />
+      <Spinner fx:id="secondOperand" layoutX="207.0" layoutY="38.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="87.0" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="118.66666666666669" AnchorPane.topAnchor="38.0" />
    </children>
 </AnchorPane>

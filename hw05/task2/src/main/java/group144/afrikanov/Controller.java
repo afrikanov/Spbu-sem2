@@ -41,7 +41,13 @@ public class Controller {
             /** Method which recounts an expression when operator changes */
             @Override
             public void changed(ObservableValue<? extends Character> observable, Character oldValue, Character newValue) {
-                count(firstOperand.getValue(), secondOperand.getValue(), operator.getValue());
+                String answer = count(firstOperand.getValue(), secondOperand.getValue(), operator.getValue());
+                if (answer != null) {
+                    result.setText(answer);
+                }
+                else {
+                    result.setText("Wrong");
+                }
             }
         };
         ChangeListener<Integer> changeListenerInt = new ChangeListener<Integer>() {
@@ -49,7 +55,13 @@ public class Controller {
             /** Method which recounts an expression when operands change */
             @Override
             public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
-                count(firstOperand.getValue(), secondOperand.getValue(), operator.getValue());
+                String answer = count(firstOperand.getValue(), secondOperand.getValue(), operator.getValue());
+                if (answer != null) {
+                    result.setText(answer);
+                }
+                else {
+                    result.setText("Wrong");
+                }
             }
         };
         operator.getSelectionModel().selectedItemProperty().addListener(changeListenerChar);
@@ -63,26 +75,23 @@ public class Controller {
      * @param second - the second operand
      * @param action - the operator
      */
-    private void count(int first, int second, char action) {
+    public static String count(int first, int second, char action) {
         switch (action) {
             case '+' :
-                result.setText(Integer.toString(first + second));
-                break;
+                return Integer.toString(first + second);
             case '*' :
-                result.setText(Integer.toString(first * second));
-                break;
+                return Integer.toString(first * second);
             case '-' :
-                result.setText(Integer.toString(first - second));
-                break;
+                return Integer.toString(first - second);
             case '/' :
                 if (second != 0) {
-                    result.setText(Double.toString(Double.valueOf(first) / Double.valueOf(second)));
+                    return Double.toString((double) first / (double) second);
                 }
                 else {
-                    result.setText("null");
+                    return null;
                 }
-                break;
         }
+        return null;
     }
 }
 

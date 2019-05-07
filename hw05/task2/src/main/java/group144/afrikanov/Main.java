@@ -13,6 +13,10 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/group144.afrikanov/sample.fxml"));
         primaryStage.setTitle("Mini-calculator");
         primaryStage.setScene(new Scene(root));
+        primaryStage.setMinWidth(420);
+        primaryStage.setMinHeight(150);
+        primaryStage.setMaxWidth(600);
+        primaryStage.setMaxHeight(300);
         primaryStage.show();
     }
 
