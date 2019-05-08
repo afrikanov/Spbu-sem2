@@ -7,52 +7,52 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="393.0" prefWidth="395.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="group144.afrikanov.Controller">
    <children>
-        <Button fx:id="button1" layoutX="16.0" layoutY="55.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0">
+        <Button fx:id="button1" layoutX="16.0" layoutY="55.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0" text=" ">
           <font>
               <Font size="50.0" />
           </font>
         </Button>
-        <Button fx:id="button2" layoutX="137.0" layoutY="55.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0">
+        <Button fx:id="button2" layoutX="137.0" layoutY="55.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0" text=" ">
             <font>
                 <Font size="50.0" />
             </font>
         </Button>
-        <Button fx:id="button3" layoutX="258.0" layoutY="55.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0">
+        <Button fx:id="button3" layoutX="258.0" layoutY="55.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0" text=" ">
             <font>
                 <Font size="50.0" />
             </font>
         </Button>
-        <Button fx:id="button4" layoutX="16.0" layoutY="163.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0">
+        <Button fx:id="button4" layoutX="16.0" layoutY="163.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0" text=" ">
             <font>
                 <Font size="50.0" />
             </font>
         </Button>
-        <Button fx:id="button5" layoutX="137.0" layoutY="163.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0">
+        <Button fx:id="button5" layoutX="137.0" layoutY="163.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0" text=" ">
             <font>
                 <Font size="50.0" />
             </font>
         </Button>
-        <Button fx:id="button6" layoutX="258.0" layoutY="163.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0">
+        <Button fx:id="button6" layoutX="258.0" layoutY="163.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0" text=" ">
             <font>
                 <Font size="50.0" />
             </font>
         </Button>
-        <Button fx:id="button7" layoutX="16.0" layoutY="271.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0">
+        <Button fx:id="button7" layoutX="16.0" layoutY="271.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0" text=" ">
             <font>
                 <Font size="50.0" />
             </font>
         </Button>
-        <Button fx:id="button8" layoutX="137.0" layoutY="271.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0">
+        <Button fx:id="button8" layoutX="137.0" layoutY="271.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0" text=" ">
           <font>
             <Font size="50.0" />
           </font>
        </Button>
-       <Button fx:id="button9" layoutX="258.0" layoutY="271.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0">
+       <Button fx:id="button9" layoutX="258.0" layoutY="271.0" mnemonicParsing="false" onAction="#fieldClick" prefHeight="91.0" prefWidth="121.0" text=" ">
            <font>
                <Font size="50.0" />
            </font>
        </Button>
       <Button layoutX="21.0" layoutY="10.0" mnemonicParsing="false" onAction="#newGame" prefHeight="33.0" prefWidth="112.0" text="New Game" />
-      <Label fx:id="winner" layoutX="151.0" layoutY="10.0" prefHeight="33.0" prefWidth="230.0" text="Winner :" />
+      <Label fx:id="winner" layoutX="151.0" layoutY="10.0" prefHeight="33.0" prefWidth="230.0" text="The game is in progress" />
    </children>
 </AnchorPane>
