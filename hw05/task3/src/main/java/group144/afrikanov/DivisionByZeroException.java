@@ -1,7 +1,8 @@
 package group144.afrikanov;
 
-public class DivisionByZeroException extends Exception {
-    public DivisionByZeroException() {
-        super("Division by zero");
+/** Class realizes an exception that throws in attempt to divide by zero  */
+public class DivisionByZeroException extends RuntimeException {
+    public DivisionByZeroException(String exceptionText) {
+        super(exceptionText);
     }
 }

@@ -1,7 +1,8 @@
 package group144.afrikanov;
 
+/** Class realizes an exception that throws in attempt to get a square root from negative number */
 public class SqrtFromNegativeDigit extends Exception {
-    public SqrtFromNegativeDigit() {
-        super("Sqrt from negative digit");
+    public SqrtFromNegativeDigit(String exceptionText) {
+        super(exceptionText);
     }
 }
