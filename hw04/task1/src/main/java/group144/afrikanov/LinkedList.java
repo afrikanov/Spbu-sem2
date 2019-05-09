@@ -14,24 +14,6 @@ public class LinkedList<T> {
     }
 
     /**
-     * Method adds a new node after certain.
-     * @param item - node after which new item should be
-     * @param value - value which is need to add
-     * @throws InvalidInputNode when the node after which you want to insert is equal to null
-     */
-    public void insertAfter(Node<T> item, T value) throws InvalidInputNode {
-        if (item == null) {
-            throw new InvalidInputNode("invalid input node");
-        }
-        Node<T> newItem = new Node<>(value, item.next, item);
-        item.next = newItem;
-        if (newItem.next != null) {
-            newItem.next.previous = newItem;
-        }
-        size++;
-    }
-
-    /**
      * Method inserts an element after all other
      * @param value - value which is need to add
      */
@@ -161,7 +143,7 @@ public class LinkedList<T> {
     }
 
     /** Class implements structure with 2 fields : value and link on the next element. */
-    protected class Node<Type> {
+    private class Node<Type> {
 
         private Type value;
         private Node<Type> next;

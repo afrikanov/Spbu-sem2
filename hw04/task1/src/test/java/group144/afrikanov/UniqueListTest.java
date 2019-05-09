@@ -20,14 +20,4 @@ class UniqueListTest {
         list.insertFront('b');
         assertThrows(ValueAlreadyExistsException.class, () -> list.insertFront('a'));
     }
-
-    @Test
-    void insertEqualAfter() throws ValueAlreadyExistsException, InvalidInputNode {
-        UniqueList<Integer> list = new UniqueList<>();
-        list.insertFront(6);
-        LinkedList<Integer>.Node<Integer> nodeBefore = list.search(6);
-        list.insertAfter(nodeBefore, 5);
-        LinkedList<Integer>.Node<Integer> newNodeBefore = list.search(5);
-        assertThrows(ValueAlreadyExistsException.class, () -> list.insertAfter(nodeBefore, 5));
-    }
 }
