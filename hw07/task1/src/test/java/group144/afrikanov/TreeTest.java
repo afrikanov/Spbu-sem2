@@ -2,9 +2,7 @@ package group144.afrikanov;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,12 +61,12 @@ class TreeTest {
         tree.add("acbd");
         tree.add("acdb");
         tree.add("adbc");
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        tree.serialize(outputStream);
+        FileOutputStream fout = new FileOutputStream("out.txt");
+        tree.serialize(fout);
         tree.add("adcb");
         tree.remove("adbc");
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-        tree.deserialize(inputStream);
+        FileInputStream fin = new FileInputStream("out.txt");
+        tree.deserialize(fin);
         assertTrue(tree.contains("adbc"));
         assertEquals(5, tree.size());
         assertFalse(tree.contains("adcb"));

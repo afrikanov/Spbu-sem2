@@ -1,6 +1,8 @@
 package group144.afrikanov;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Class implements methods of bor
@@ -10,6 +12,7 @@ class Tree implements Serializable {
     private final int ALPHABET_SIZE = 26;
     private Node root = new Node();
     private int treeSize = 0;
+    ArrayList<String> allValues = new ArrayList<>();
 
     /**
      * Method returns the size of bor
@@ -24,9 +27,9 @@ class Tree implements Serializable {
      * @return true if bor contains an element, false otherwise
      * @throws InvalidSymbolException if string includes invalid symbol
      */
-    boolean contains(String element) throws InvalidSymbolException {
+    public boolean contains(String element) throws InvalidSymbolException {
         if (invalidString(element))
-            throw new InvalidSymbolException();
+            throw new InvalidSymbolException("Invalid symbol");
         Node nodeNow = root;
         for (int i = 0; i < element.length(); ++i) {
             if (nodeNow == null) {
@@ -43,7 +46,7 @@ class Tree implements Serializable {
      * @param element - string, that should be checked
      * @return true if string is invalid, false otherwise
      */
-    boolean invalidString(String element) {
+    public boolean invalidString(String element) {
         for (int i = 0; i < element.length(); ++i) {
             if (element.charAt(i) > 'z' || element.charAt(i) < 'a') {
                 return true;
@@ -58,10 +61,11 @@ class Tree implements Serializable {
      * @return false if bor contains an element, true otherwise
      * @throws InvalidSymbolException if string includes invalid symbol
      */
-    boolean add(String element) throws InvalidSymbolException {
+    public boolean add(String element) throws InvalidSymbolException {
         if (contains(element)) {
             return false;
         }
+        allValues.add(element);
         ++treeSize;
         Node nodeNow = root;
         for (int i = 0; i < element.length(); ++i) {
@@ -87,7 +91,7 @@ class Tree implements Serializable {
      * @return true if bor contains an element, false otherwise
      * @throws InvalidSymbolException if string includes invalid symbol
      */
-    boolean remove(String element) throws InvalidSymbolException {
+    public boolean remove(String element) throws InvalidSymbolException {
         if (!contains(element)) {
             return false;
         }
@@ -108,7 +112,7 @@ class Tree implements Serializable {
      * @param prefix - common prefix of some strings
      * @return amount of strings with common certain prefix
      */
-    int howManyStartWithPrefix(String prefix) {
+    public int howManyStartWithPrefix(String prefix) {
         Node nodeNow = root;
         for (int i = 0; i < prefix.length(); ++i) {
             if (nodeNow == null) {
@@ -123,30 +127,47 @@ class Tree implements Serializable {
 
     /**
      * Method writes an object to a stream to save it
-     * @param out - output stream
+     * @param outputStream - output stream
      * @throws IOException if operations are failed
      */
-    void serialize(OutputStream out) throws IOException {
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(out);
-        objectOutputStream.writeObject(this);
+    public void serialize(OutputStream outputStream) throws IOException {
+        OutputStreamWriter streamWriter = new OutputStreamWriter(outputStream);
+        for (String word: allValues) {
+            streamWriter.write(word);
+            streamWriter.write(System.lineSeparator());
+        }
+        streamWriter.close();
+        outputStream.close();
     }
 
     /**
      * Method sets the input data from the stream to bor
-     * @param in - input stream
+     * @param inputStream - input stream
      * @throws IOException if operations are failed
      * @throws ClassNotFoundException if file .class is out of classpath
      */
-    void deserialize(InputStream in) throws IOException, ClassNotFoundException {
-        ObjectInputStream objectInputStream = new ObjectInputStream(in);
-        Tree tree = (Tree) objectInputStream.readObject();
+    public void deserialize(InputStream inputStream) throws IOException, ClassNotFoundException, InvalidSymbolException {
+        InputStreamReader reader = new InputStreamReader(inputStream);
+        BufferedReader buffer = new BufferedReader(reader);
+        Tree tree = new Tree();
+        while (true) {
+            String newWord;
+            newWord = buffer.readLine();
+            if (newWord == null) {
+                break;
+            }
+            tree.add(newWord);
+        }
         root = tree.root;
+        buffer.close();
+        reader.close();
+        inputStream.close();
     }
 
     /**
      * Class for working with the bor
      */
-    class Node implements Serializable {
+    private class Node implements Serializable {
         boolean isTerminal = false;
         Node[] next = new Node[ALPHABET_SIZE];
         int nodeSize = 0;
