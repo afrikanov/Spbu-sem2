@@ -17,7 +17,7 @@ public class Main {
         multiThreadSummaryTime = 0;
         for (int i = 0; i < TESTS_AMOUNT; ++i) {
             fillArray(arrayOneThread);
-            arrayMultiThread = arrayOneThread;
+            arrayMultiThread = arrayOneThread.clone();
             Sort oneThreadSorter = new OneThreadQSort();
             oneThreadSummaryTime += executionTime(arrayOneThread, oneThreadSorter);
             Sort multiThreadSorter = new MultiThreadQSort();
