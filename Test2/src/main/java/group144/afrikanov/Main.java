@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         LinkedList<LinkedList<String>> allArrays = new LinkedList<>();
         Scanner in = new Scanner(System.in);
-        System.out.println("Enter exit to stop");
+        System.out.println("Print 'exit' to stop");
         while(true) {
             String inputLine = in.nextLine();
             if (inputLine.equals("exit")) {
@@ -32,8 +32,8 @@ public class Main {
                 stepList.add(elementNow.toString());
             }
             allArrays.add(stepList);
-            SortedSet sortedSet = new SortedSet(allArrays);
-            System.out.println(sortedSet.printValue());
         }
+        SortedSet sortedSet = new SortedSet(allArrays);
+        System.out.println(sortedSet.printValue());
     }
 }

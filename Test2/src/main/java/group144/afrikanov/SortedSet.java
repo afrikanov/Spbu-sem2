@@ -5,7 +5,7 @@ import java.util.LinkedList;
 /** Class that implements the data structure which saves elements in sorted order */
 public class SortedSet<T> implements ListsComorator<T> {
 
-    private LinkedList<LinkedList<T>> list;
+    public LinkedList<LinkedList<T>> list;
 
     SortedSet() {}
 
@@ -26,9 +26,9 @@ public class SortedSet<T> implements ListsComorator<T> {
     }
 
     /** Method realized the sorting method */
-    private void sort(LinkedList<LinkedList<T>> list, int left, int right) {
-        for (int i = left; i < right - 2; ++i) {
-            for (int j = left; j < right - i - 2; ++j) {
+    public void sort(LinkedList<LinkedList<T>> list, int left, int right) {
+        for (int i = left + 1; i < right; ++i) {
+            for (int j = left; j < right - i; ++j) {
                 if (compare(list.get(j), list.get(j + 1)) > 0) {
                     swap(list, j, j + 1);
                 }

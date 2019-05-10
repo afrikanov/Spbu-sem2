@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SortedSetTest {
 
     @Test
-    void print() {
+    void sort() {
         LinkedList<LinkedList<String>> allStrings = new LinkedList<>();
         String line11 = "123";
         String line12 = "13";
@@ -26,10 +26,9 @@ class SortedSetTest {
         allStrings.add(list1);
         allStrings.add(list2);
         SortedSet<String> set = new SortedSet<>(allStrings);
-        StringBuilder expected = new StringBuilder("123 13 ");
-        expected.append(System.lineSeparator());
-        expected.append("123 123 1232 ");
-        expected.append(System.lineSeparator());
-        assertEquals(expected, set.printValue());
+        LinkedList<LinkedList<String>> expected = new LinkedList<>();
+        expected.add(list1);
+        expected.add(list2);
+        assertEquals(expected, set.list);
     }
 }
