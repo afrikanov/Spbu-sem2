@@ -8,6 +8,9 @@ public class LinkedList<T> {
     private Node<T> head = null;
     private Node<T> tail = null;
     private int size = 0;
+    private String valueNotFoundText = "Value not found";
+    protected String valueAlreadyExistsText = "Value already exists";
+    private String indexOutOfBoundsText = "Index is out of bounds";
 
     public int getSize() {
         return size;
@@ -61,7 +64,7 @@ public class LinkedList<T> {
         if (certainNode != null) {
             removeNode(certainNode);
         } else {
-            throw new ValueNotFoundException("value not found");
+            throw new ValueNotFoundException(valueNotFoundText);
         }
     }
 
@@ -77,7 +80,7 @@ public class LinkedList<T> {
             }
             size--;
         } else {
-            throw new ValueNotFoundException("value not found");
+            throw new ValueNotFoundException(valueNotFoundText);
         }
     }
 
@@ -93,7 +96,7 @@ public class LinkedList<T> {
             }
             size--;
         } else {
-            throw new ValueNotFoundException("value not found");
+            throw new ValueNotFoundException(valueNotFoundText);
         }
     }
 
@@ -108,7 +111,7 @@ public class LinkedList<T> {
      */
     public T getValueByIndex(int index) throws IndexOutOfBoundsException {
         if ((index >= size) || (index < 0)) {
-            throw new IndexOutOfBoundsException("index is out of bounds");
+            throw new IndexOutOfBoundsException(indexOutOfBoundsText);
         }
         return getNodeByIndex(index).value;
     }
@@ -120,7 +123,7 @@ public class LinkedList<T> {
      */
     public Node<T> getNodeByIndex(int index) throws IndexOutOfBoundsException {
         if ((index >= size) || (index < 0)) {
-            throw new IndexOutOfBoundsException("index is out of bounds");
+            throw new IndexOutOfBoundsException(indexOutOfBoundsText);
         }
         Node<T> result = head;
         for (int i = 0; i < index; i++) {
