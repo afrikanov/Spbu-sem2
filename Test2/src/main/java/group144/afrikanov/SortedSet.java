@@ -43,15 +43,13 @@ public class SortedSet<T> implements ListsComorator<T> {
         list.set(secondIndex, intermediateValue);
     }
 
-    /** Method returns the result order of input arrays */
-    public String printValue() {
-        StringBuilder output = new StringBuilder();
+    /** Method prints the result order of input arrays */
+    public void print() {
         for (var listElement : list) {
             for (var value : listElement) {
-                output.append(value).append(" ");
+                System.out.println(value + " ");
             }
-            output.append(System.lineSeparator());
+            System.out.println();
         }
-        return output.toString();
     }
 }

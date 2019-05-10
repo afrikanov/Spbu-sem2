@@ -34,6 +34,6 @@ public class Main {
             allArrays.add(stepList);
         }
         SortedSet sortedSet = new SortedSet(allArrays);
-        System.out.println(sortedSet.printValue());
+        sortedSet.print();
     }
 }
