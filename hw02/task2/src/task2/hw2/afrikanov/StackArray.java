@@ -3,14 +3,14 @@ package task2.hw2.afrikanov;
 /** Class implements a stack basing on an array */
 public class StackArray<Type> implements Stack<Type> {
 
-    private final int MAX_SIZE = (int)1e5;
-    private Type[] stack = (Type[]) new Object[MAX_SIZE];
-    private Type top = null;
+    private final int maxSize = (int)1e5;
+    private Type[] stack = (Type[]) new Object[maxSize];
+    private Type top;
     private int size = 0;
 
     @Override
     public void push(Type value) throws FullStackException {
-        if (size == MAX_SIZE) {
+        if (size == maxSize) {
             throw new FullStackException("The stack is full");
         }
         stack[size] = value;

@@ -13,11 +13,11 @@ public class Calculator {
     public int count(String inputString) throws FullStackException, EmptyStackException {
         Stack<Integer> stack = new StackList<>();
         for (int i = 0; i < inputString.length(); i++) {
-            char strVal = inputString.charAt(i);
-            if (strVal == ' ') {
+            char stringValue = inputString.charAt(i);
+            if (stringValue == ' ') {
                 continue;
             }
-            if (strVal != '+' && strVal != '*' && strVal != '-' && strVal != '/') {
+            if (stringValue != '+' && stringValue != '*' && stringValue != '-' && stringValue != '/') {
                 StringBuilder newInteger = new StringBuilder();
                 int j = i;
                 while (j < inputString.length() && inputString.charAt(j) >= '0' && inputString.charAt(j) <= '9') {
@@ -30,7 +30,7 @@ public class Calculator {
             }
             int value = stack.getTop();
             stack.pop();
-            switch (strVal) {
+            switch (stringValue) {
                 case '+':
                     value += stack.getTop();
                     break;

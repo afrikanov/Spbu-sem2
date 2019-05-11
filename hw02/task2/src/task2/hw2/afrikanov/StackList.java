@@ -43,7 +43,7 @@ public class StackList<Type> implements Stack<Type> {
         private Type value;
         private Node<T> next;
 
-        Node(Type value, Node<T> next) {
+        private Node(Type value, Node<T> next) {
             this.value = value;
             this.next = next;
         }
