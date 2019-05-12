@@ -5,113 +5,37 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import static java.lang.Math.max;
-import static java.lang.Math.min;
-
 /**
  * Realizes the AVL Tree data structure
- * @param <T> - T you want to use in your avl tree
+ * @param <Type> - T you want to use in your avl tree
  */
-public class AVLTree<T extends Comparable<T>> implements Collection<T> {
+public class AVLTree<Type extends Comparable<Type>> implements Collection<Type> {
 
-    private Node<T> root = null;
+    private Node<Type> root = null;
     private int size = 0;
 
-    /**
-     * @param node - the root of a tree
-     * @return a height of the tree with a root in a certain node
-     */
-    public int getHeight(Node<T> node) {
-        return ((node != null) ? node.height : 0);
+    public Node<Type> getRoot() {
+        return root;
     }
 
-    /** Returns difference between left and right nodes' heights */
-    public int balanceFactor(Node<T> node) {
-        return getHeight(node.left) - getHeight(node.right);
-    }
-
-    /** Changes right or left node height */
-    public void fixHeight(Node<T> node) {
-        node.height = max(getHeight(node.left), getHeight(node.right)) + 1;
-    }
-
-    /**
-     * Realize right rotation
-     * @param node in which realised rotate
-     */
-    public Node<T> rotateRight(Node<T> node) {
-        Node<T> leftNode = node.left;
-        node.left = leftNode.right;
-        if (leftNode.right != null) {
-            leftNode.right.parent = node;
+    public Type getRootKey() {
+        if (root != null) {
+            return root.key;
         }
-        leftNode.right = node;
-        if (node.parent == null) {
-            root = leftNode;
-        } else {
-            if (node.equals(node.parent.left)) {
-                node.parent.left = leftNode;
-            } else {
-                node.parent.right = leftNode;
-            }
-        }
-        leftNode.parent = node.parent;
-        node.parent = leftNode;
-        fixHeight(node);
-        fixHeight(leftNode);
-        return leftNode;
-    }
-
-    /**
-     * Realize left rotation
-     * @param node in which realised rotate
-     */
-    public Node<T> rotateLeft(Node<T> node) {
-        Node<T> rightNode = node.right;
-        node.right = rightNode.left;
-        if (rightNode.left != null) {
-            rightNode.left.parent = node;
-        }
-        rightNode.left = node;
-        if (node.parent == null) {
-            root = rightNode;
-        } else {
-            if (node.equals(node.parent.left)) {
-                node.parent.left = rightNode;
-            } else {
-                node.parent.right = rightNode;
-            }
-        }
-        rightNode.parent = node.parent;
-        node.parent = rightNode;
-        fixHeight(node);
-        fixHeight(rightNode);
-        return rightNode;
-    }
-
-    /**
-     * Realize balance
-     * @param node in which realised balance
-     */
-    public Node<T> balance(Node<T> node) {
-        fixHeight(node);
-        if (balanceFactor(node) == -2) {
-            if (balanceFactor(node.left) > 0) {
-                node.left = rotateLeft(node.left);
-            }
-            return rotateRight(node);
-        } else if (balanceFactor(node) == 2) {
-            if (balanceFactor(node.right) < 0) {
-                node.right = rotateRight(node.right);
-            }
-            return rotateLeft(node);
-        }
-        return node;
+        return null;
     }
 
     /** @return amount of elements in your tree */
     @Override
     public int size() {
         return size;
+    }
+
+    public String print() {
+        if (isEmpty()) {
+            return "null";
+        }
+        return root.print();
     }
 
     /** @return true is tree is empty, false otherwise */
@@ -121,8 +45,8 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
     }
 
     /** @return true if value contains in tree */
-    public boolean isContains(T value, Node<T> node) {
-        if (node == null) {
+    private boolean isContains(Type value, Node<Type> node) {
+        if (node == null || node.key == null) {
             return false;
         }
         if (node.key.compareTo(value) == 0) {
@@ -140,16 +64,16 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
      */
     @Override
     public boolean contains(Object object) {
-        return isContains((T) object, root);
+        return isContains((Type) object, root);
     }
 
     /** @return tree iterator */
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<Type> iterator() {
         return new TreeIterator<>(root);
     }
 
-    /** @return array, which contains all elements of the collection in increasing order */
+    /** @return array, which contains all elements of the collection */
     @Override
     public Object[] toArray() {
         Object[] objectArray = new Object[size];
@@ -157,15 +81,15 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
     }
 
     /**
-     * Returns array, which contains all elements of the collection in increasing order
+     * Returns array, which contains all elements of the collection
      * @param a in which element from the collection will be added
-     * @param <Type> Type of the array
+     * @param <T> T of the array
      */
     @Override
-    public <Type> Type[] toArray(Type[] a) {
-        ArrayList<Type> arrayList = new ArrayList<>();
-        for (var element : a) {
-            arrayList.add((Type)element);
+    public <T> T[] toArray(T[] a) {
+        ArrayList<T> arrayList = new ArrayList<>();
+        for (var element : this) {
+            arrayList.add((T)element);
         }
         return arrayList.toArray(a);
     }
@@ -174,8 +98,8 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
      * Adds a value to the AVL Tree
      * @param value - value, which you want to add
      */
-    public void addNode(Node<T> node, T value) {
-        if (value.compareTo(node.key) > 0) {
+    private void addNode(Node<Type> node, Type value) {
+        if (value.compareTo(node.key) < 0) {
             if (node.left == null) {
                 node.left = new Node<>(value, node);
             } else {
@@ -188,6 +112,7 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
                 addNode(node.right, value);
             }
         }
+        node.balance();
     }
 
     /**
@@ -196,9 +121,10 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
      * @return false, if the tree contains this value before adding, else true
      */
     @Override
-    public boolean add(T value) {
+    public boolean add(Type value) {
         if (root == null) {
             root = new Node<>(value);
+            ++size;
             return true;
         } else {
             if (contains(value)) {
@@ -210,81 +136,6 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
         }
     }
 
-    /** @return the smallest element in a tree with a node as a root */
-    public Node<T> findMin(Node<T> node) {
-        return node.left != null ? findMin(node.left) : node;
-    }
-
-    /** Removes the smallest value from the AVL Tree */
-    public Node<T> removeMin(Node<T> node) {
-        if (node.left == null) {
-            return node.right;
-        }
-        node.left = removeMin(node.left);
-        return balance(node);
-    }
-
-    /**
-     * @param value - value which you want to find
-     * @param node - root of a tree
-     * @return a node with a certain value or null if it doesn't exists
-     */
-    public Node<T> findKey(T value, Node<T> node) {
-        if (node == null) {
-            return null;
-        }
-        if (value.compareTo((T) node) > 0) {
-            return findKey(value, node.right);
-        } else if (value.compareTo((T) node) < 0) {
-            return findKey(value, node.left);
-        } else {
-            return node;
-        }
-    }
-
-    /**
-     * Method removes a node from the tree by the value
-     * @param value - value of the node you want to remove
-     * @param node - root of the tree, you want to remove the node
-     */
-    private void removeNode(T value, Node<T> node) {
-        Node<T> nodeRemove = findKey(value, node);
-        if (nodeRemove == null) {
-            return;
-        }
-        Node<T> leftTree = nodeRemove.left;
-        Node<T> rightTree = nodeRemove.right;
-        if (rightTree.equals(null)) {
-            if (!leftTree.equals(null)) {
-                leftTree.parent = nodeRemove.parent;
-            }
-            nodeRemove = leftTree;
-            Node<T> nodeUp = nodeRemove;
-            while (!nodeUp.equals(null)) {
-                nodeUp = balance(nodeUp);
-                nodeUp = nodeUp.parent;
-            }
-            return;
-        }
-        Node<T> minValue = findMin(rightTree);
-        minValue.parent = nodeRemove.parent;
-        if (!nodeRemove.parent.equals(null)) {
-            if (nodeRemove.parent.left.equals(nodeRemove)) {
-                nodeRemove.parent.left = minValue;
-            }
-            else {
-                nodeRemove.parent.right = minValue;
-            }
-        }
-        minValue.right = removeMin(rightTree);
-        minValue.left = leftTree;
-        Node<T> nodeUp = minValue;
-        while (!nodeUp.equals(null)) {
-            nodeUp = balance(nodeUp);
-            nodeUp = nodeUp.parent;
-        }
-    }
-
     /**
      * Method removes element from tree
      * @param value of removing element
@@ -293,11 +144,25 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
     @Override
     public boolean remove(Object value) {
         if (contains(value)) {
-            removeNode((T)value, root);
+            root.removeNode((Type) value, this);
             --size;
             return true;
         }
         return false;
+    }
+
+    /**
+     * Method removes the smallest element in the tree with root in certain node
+     * @param node - root of the tree
+     */
+    private void removeMin(Node<Type> node) {
+        if (node.left == null) {
+            if (node.right != null) {
+                node.right.parent = node.parent.left;
+            }
+        }
+        removeMin(node.left);
+        node.balance();
     }
 
     /**
@@ -316,7 +181,7 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
 
     /** Method adds elements from collection to the tree */
     @Override
-    public boolean addAll(Collection<? extends T> c) {
+    public boolean addAll(Collection<? extends Type> c) {
         for (var element : c) {
             if (!add(element)) {
                 return false;
@@ -364,42 +229,220 @@ public class AVLTree<T extends Comparable<T>> implements Collection<T> {
     }
 
     /** Class realizes the structure of the Node in the tree */
-    public class Node<Type extends Comparable<Type>> implements Comparable<Node<Type>> {
-        private Type key;
+    private class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
+        private T key;
         private int height = 1;
-        private Node<Type> left, right, parent;
+        private Node<T> left;
+        private Node<T> right;
+        private Node<T> parent;
 
-        Node (Type key, Node<Type> parent) {
+        private Node (T key, Node<T> parent) {
             this.key = key;
             left = right = null;
             this.parent = parent;
         }
 
-        Node (Type key) {
+        private Node (T key) {
             this.key = key;
             left = right = null;
             this.parent = null;
         }
 
-        public Type getKey() {
-            return key;
+        /** @return the smallest element in a tree with a certain node as a root */
+        private Node<T> findMin() {
+            return this.left != null ? this.left.findMin() : this;
         }
 
-        public Node<Type> getParent() {
-            return parent;
+        private String print() {
+            TreeIterator<Integer> iterator = new TreeIterator<Integer>((AVLTree<Integer>.Node<Integer>)root);
+            StringBuilder answer = new StringBuilder();
+            while (iterator.hasNext()) {
+                answer.append(iterator.next()).append(" ");
+            }
+            return answer.toString();
         }
 
-        public Node<Type> getLeftNode() {
-            return left;
+        /**
+         * Method removes a node from the tree by the value
+         * @param value - value of the node you want to remove
+         */
+        private void removeNode(T value, AVLTree<T> tree) {
+            if (value.compareTo(this.key) > 0) {
+                this.right.removeNode(value, tree);
+            } else if (value.compareTo(this.key) < 0) {
+                this.left.removeNode(value, tree);
+            } else {
+                Node<T> leftTree = this.left;
+                Node<T> rightTree = this.right;
+                if (rightTree == null) {
+                    if (leftTree == null) {
+                        if (this.parent != null) {
+                            if (this == this.parent.left) {
+                                this.parent.left = null;
+                            } else {
+                                this.parent.right = null;
+                            }
+                        } else {
+                            tree.root = null;
+                        }
+                    } else {
+                        this.key = this.left.key;
+                        if (this.parent != null) {
+                            this.parent = this.left;
+                        }
+                        this.left = null;
+                    }
+                } else {
+                    if (leftTree == null) {
+                        this.key = this.right.key;
+                        if (this.parent != null) {
+                            this.parent = this.right;
+                        }
+                        this.right = null;
+                    } else {
+                        Node<T> smallestNode = rightTree.findMin();
+                        removeMin((Node<Type>) rightTree);
+                        this.key = smallestNode.key;
+                    }
+                }
+            }
         }
 
-        public Node<Type> getRightNode() {
-            return right;
+        /** Method realizes balancing of the tree */
+        private void balance() {
+            this.fixHeight();
+            if (this.balanceFactor() == -2) {
+                if (this.right.balanceFactor() > 0) {
+                    this.right.rotateRight();
+                }
+                this.rotateLeft();
+            } else if (this.balanceFactor() == 2) {
+                if (this.left.balanceFactor() < 0) {
+                    this.left.rotateLeft();
+                }
+                this.rotateRight();
+            }
+        }
+
+        /** Method realizes right rotation */
+        private void rotateRight() {
+            Node<T> leftNode = this.left;
+            this.left = leftNode.right;
+            if (leftNode.right != null) {
+                leftNode.right.parent = this;
+            }
+            leftNode.right = this;
+            if (this.parent == null) {
+                root = (Node<Type>) leftNode;
+            } else {
+                if (this.equals(this.parent.left)) {
+                    this.parent.left = leftNode;
+                } else {
+                    this.parent.right = leftNode;
+                }
+            }
+            leftNode.parent = this.parent;
+            this.parent = leftNode;
+            this.fixHeight();
+            leftNode.fixHeight();
+        }
+
+        /** Method realizes left rotation */
+        private void rotateLeft() {
+            Node<T> rightNode = this.right;
+            this.right = rightNode.left;
+            if (rightNode.left != null) {
+                rightNode.left.parent = this;
+            }
+            rightNode.left = this;
+            if (this.parent == null) {
+                root = (Node<Type>) rightNode;
+            } else {
+                if (this.equals(this.parent.left)) {
+                    this.parent.left = rightNode;
+                } else {
+                    this.parent.right = rightNode;
+                }
+            }
+            rightNode.parent = this.parent;
+            this.parent = rightNode;
+            this.fixHeight();
+            rightNode.fixHeight();
+        }
+
+        /** Returns difference between left and right nodes' heights */
+        private int balanceFactor() {
+            return (this.left == null ? 0 : this.left.height) - (this.right == null ? 0 : this.right.height);
+        }
+
+        /** Changes right or left node height */
+        private void fixHeight() {
+            this.height = max(this.left == null ? 0 : this.left.height, this.right == null ? 0 : this.right.height) + 1;
+        }
+
+        /** Method compares 2 nodes */
+        @Override
+        public int compareTo(Node<T> node) {
+            return this.key.compareTo(node.key);
+        }
+    }
+
+    /**
+     * Class realizes the AVL Tree iterator of a T type
+     * @param <T> T you want to use in your AVL Tree
+     */
+    public static class TreeIterator <T extends Comparable<T>> implements Iterator<T> {
+
+        private AVLTree<T>.Node<T> next;
+        String exceptionText = "No next element";
+
+        TreeIterator(AVLTree<T>.Node<T> node) {
+            if (node == null) {
+                return;
+            }
+            next = node;
+            while (next.left != null) {
+                next = next.left;
+            }
+        }
+
+        /**
+         * Method finds the element of the tree after certain
+         * @return next element of the tree
+         * @throws NoNextElementException when there is no next element
+         */
+        @Override
+        public T next() throws NoNextElementException {
+            AVLTree<T>.Node<T> currentNode = next;
+            if (!hasNext()) {
+                throw new NoNextElementException(exceptionText);
+            }
+            if (next.right == null) {
+                while (true) {
+                    if (next.parent != null) {
+                        if (next.parent.left == next) {
+                            next = next.parent;
+                            return currentNode.key;
+                        } else {
+                            next = next.parent;
+                        }
+                    } else {
+                        next = null;
+                        return currentNode.key;
+                    }
+                }
+            } else {
+                next = next.right;
+                while (next.left != null) {
+                    next = next.left;
+                }
+                return currentNode.key;
+            }
         }
 
         @Override
-        public int compareTo(Node<Type> node) {
-            return key.compareTo(node.key);
+        public boolean hasNext() {
+            return next != null;
         }
     }
 }
