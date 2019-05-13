@@ -70,10 +70,11 @@ public class Controller {
     }
 
     /**
-     * Method which rewrites the label after changing parameters and recounting the result.
+     * Method which gives the result of expression
      * @param first - the first operand
      * @param second - the second operand
      * @param action - the operator
+     * @return answer - result of expression
      */
     public static String count(int first, int second, char action) {
         switch (action) {
