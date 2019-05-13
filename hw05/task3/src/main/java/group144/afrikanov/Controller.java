@@ -45,6 +45,9 @@ public class Controller {
     private static String operatorButtonHandler(String inputOperator) throws DivisionByZeroException {
         String top = stack.get(stack.size() - 1);
         stack.add(inputOperator);
+        if (inputOperator.equals("=") && operator.equals("$")) {
+            return "no";
+        }
         if (operator.equals("$") || top.equals("+") || top.equals("*") || top.equals("-") || top.equals("/")) {
             operator = inputOperator;
             return "no";
