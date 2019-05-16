@@ -99,7 +99,7 @@
                     <Font size="20.0" />
                 </font>
             </Button>
-            <Button fx:id="equal" layoutX="240.0" layoutY="109.0" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="60.0" prefWidth="72.0" text="=" GridPane.columnIndex="3">
+            <Button fx:id="equal" layoutX="240.0" layoutY="109.0" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="60.0" prefWidth="72.0" text="=" GridPane.columnIndex="2" GridPane.columnSpan="2">
                 <font>
                     <Font size="20.0" />
                 </font>
