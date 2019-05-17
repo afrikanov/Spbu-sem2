@@ -7,7 +7,7 @@ import java.util.List;
 import static java.util.Collections.swap;
 
 /** Class realizes a method which sorts a list using a given comparator using a bubble sort technique */
-public class BubbleSort<Type> implements ComparatorSorter {
+public class BubbleSort<Type> implements ComparatorSorter<Type> {
 
     @Override
     public <Type> List<Type> sort(Comparator<Type> comparator, List<Type> list) throws NullComparatorException {
