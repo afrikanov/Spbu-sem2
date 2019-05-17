@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MoveToFrontCoderTest {
 
     @Test
-    public void ExampleCodeTest() {
+    public void exampleCodeTest() {
         MoveToFrontCoder coder = new MoveToFrontCoder();
         String word = "banana";
         List<Integer> expected = new ArrayList<>(Arrays.asList(1, 1, 13, 1, 1, 1));
@@ -23,6 +23,22 @@ public class MoveToFrontCoderTest {
         MoveToFrontCoder encoder = new MoveToFrontCoder();
         List<Integer> list = new ArrayList<>(Arrays.asList(1, 1, 13, 1, 1, 1));
         String expected = "banana";
+        assertEquals(expected, encoder.encode(list));
+    }
+
+    @Test
+    public void codeTest() {
+        MoveToFrontCoder coder = new MoveToFrontCoder();
+        String word = "aaabbc";
+        List<Integer> expected = new ArrayList<>(Arrays.asList(0, 0, 0, 1, 0, 2));
+        assertEquals(expected, coder.code(word));
+    }
+
+    @Test
+    public void encodeTest() {
+        MoveToFrontCoder encoder = new MoveToFrontCoder();
+        List<Integer> list = new ArrayList<>(Arrays.asList(0, 0, 0, 1, 0, 2));
+        String expected = "aaabbc";
         assertEquals(expected, encoder.encode(list));
     }
 }
