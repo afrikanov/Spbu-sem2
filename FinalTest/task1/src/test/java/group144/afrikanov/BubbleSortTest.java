@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BubbleSortTest {
 
     private Random random = new Random();
-    private static int RANDOM_SIZE = (int)1e4;
+    private static final int RANDOM_SIZE = (int)1e4;
     private BubbleSort<Integer> intSorter = new BubbleSort<>();
     private Comparator<Integer> intComparator = Integer::compareTo;
     private BubbleSort<String> stringSorter = new BubbleSort<>();
