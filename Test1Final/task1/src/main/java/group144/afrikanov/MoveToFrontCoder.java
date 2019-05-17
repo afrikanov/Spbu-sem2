@@ -9,16 +9,6 @@ public class MoveToFrontCoder {
 
     private List<Character> alphabet = new ArrayList<>();
 
-    /** Method finds a letter in alphabet and returns it's position */
-    private int getPosition(Character letter) {
-        for (int i = 0; i < alphabet.size(); i++) {
-            if (alphabet.get(i) == letter) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /** Method initializes alphabet */
     private void initialize() {
         for (Character letter = 'a'; letter <= 'z'; ++letter) {
@@ -51,7 +41,7 @@ public class MoveToFrontCoder {
         initialize();
         List<Integer> result = new ArrayList<>();
         for (Character letter : word.toCharArray()) {
-            int currentPosition = getPosition(letter);
+            int currentPosition = alphabet.indexOf(letter);
             result.add(currentPosition);
             moveToFront(currentPosition);
         }
