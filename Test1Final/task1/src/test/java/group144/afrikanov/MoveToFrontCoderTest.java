@@ -29,16 +29,16 @@ public class MoveToFrontCoderTest {
     @Test
     public void codeTest() {
         MoveToFrontCoder coder = new MoveToFrontCoder();
-        String word = "aaabbc";
-        List<Integer> expected = new ArrayList<>(Arrays.asList(0, 0, 0, 1, 0, 2));
+        String word = "aaabbC";
+        List<Integer> expected = new ArrayList<>(Arrays.asList(0, 0, 0, 1, 0, 28));
         assertEquals(expected, coder.code(word));
     }
 
     @Test
     public void encodeTest() {
         MoveToFrontCoder encoder = new MoveToFrontCoder();
-        List<Integer> list = new ArrayList<>(Arrays.asList(0, 0, 0, 1, 0, 2));
-        String expected = "aaabbc";
+        List<Integer> list = new ArrayList<>(Arrays.asList(0, 0, 0, 1, 0, 28));
+        String expected = "aaabbC";
         assertEquals(expected, encoder.encode(list));
     }
 }
