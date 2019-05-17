@@ -60,10 +60,8 @@ class BubbleSortTest {
         for (int i = 0; i < RANDOM_SIZE; i++) {
             list.add(random.nextInt());
         }
-
         List<Integer> sortedList = new ArrayList<>(list);
         Collections.sort(sortedList);
-
         assertEquals(sortedList, intSorter.sort(intComparator, list));
     }
 
