@@ -20,9 +20,9 @@ public class BubbleSort<Type> implements ComparatorSorter<Type> {
         List<Type> sortedList = new ArrayList<>(list);
         for (int i = 1; i < list.size(); i++) {
             for (int j = 0; j < list.size() - i; j++) {
-                Type leftElement = sortedList.get(j + 1);
-                Type rightElement = sortedList.get(j);
-                if (comparator.compare(leftElement, rightElement) < 0) {
+                Type leftElement = sortedList.get(j);
+                Type rightElement = sortedList.get(j + 1);
+                if (comparator.compare(leftElement, rightElement) > 0) {
                     swap(sortedList, j, j + 1);
                 }
             }
