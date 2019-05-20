@@ -2,10 +2,8 @@ package task3.hw2.afrikanov;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
+import javax.lang.model.type.IntersectionType;
+import java.io.*;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class OutputerTest {
 
     @Test
-    void printOneElementInColsole() {
+    void printOneElementInColsole() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         System.setOut(new PrintStream(actual));
-        int[][] arrayStart = {{10}};
+        Integer[][] arrayStart = {{10}};
         Outputer output = new PrintInConsole();
         output.print(arrayStart);
         String expecteds = "10 ";
@@ -24,10 +22,10 @@ class OutputerTest {
     }
 
     @Test
-    void printInConsole() {
+    void printInConsole() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         System.setOut(new PrintStream(actual));
-        int[][] arrayStart = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        Integer[][] arrayStart = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         Outputer output = new PrintInConsole();
         output.print(arrayStart);
         String expecteds = "5 6 3 2 1 4 7 8 9 ";
@@ -35,8 +33,8 @@ class OutputerTest {
     }
 
     @Test
-    public void printInFile() throws FileNotFoundException {
-        int[][] arrayStart = {{1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}};
+    public void printInFile() throws IOException {
+        Character[][] arrayStart = {{'1', '2', '3', '4', '5'}, {'1', '2', '3', '4', '5'}, {'1', '2', '3', '4', '5'}, {'1', '2', '3', '4', '5'}, {'1', '2', '3', '4', '5'}};
         Outputer output = new PrintInFile();
         output.print(arrayStart);
         Scanner file = new Scanner(new File("File.txt"));
