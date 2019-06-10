@@ -36,11 +36,11 @@ public class Controller {
         SpinnerValueFactory<Integer> valuesSecond = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 9, 0);
         firstOperand.setValueFactory(valuesFirst);
         secondOperand.setValueFactory(valuesSecond);
-        ChangeListener<Character> changeListenerChar = new ChangeListener<>() {
-
-            /** Method which recounts an expression when operator changes */
+        ChangeListener changeListener = new ChangeListener() {
+            
+            /** Method changes the result of the expression when situation changes */
             @Override
-            public void changed(ObservableValue<? extends Character> observable, Character oldValue, Character newValue) {
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 String answer = count(firstOperand.getValue(), secondOperand.getValue(), operator.getValue());
                 if (answer != null) {
                     result.setText(answer);
@@ -50,23 +50,9 @@ public class Controller {
                 }
             }
         };
-        ChangeListener<Integer> changeListenerInt = new ChangeListener<Integer>() {
-
-            /** Method which recounts an expression when operands change */
-            @Override
-            public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
-                String answer = count(firstOperand.getValue(), secondOperand.getValue(), operator.getValue());
-                if (answer != null) {
-                    result.setText(answer);
-                }
-                else {
-                    result.setText("Wrong");
-                }
-            }
-        };
-        operator.getSelectionModel().selectedItemProperty().addListener(changeListenerChar);
-        firstOperand.valueProperty().addListener(changeListenerInt);
-        secondOperand.valueProperty().addListener(changeListenerInt);
+        operator.getSelectionModel().selectedItemProperty().addListener(changeListener);
+        firstOperand.valueProperty().addListener(changeListener);
+        secondOperand.valueProperty().addListener(changeListener);
     }
 
     /**
