@@ -3,7 +3,7 @@ package task3.hw2.afrikanov;
 import java.io.IOException;
 import java.io.PrintStream;
 
-public class PrintInFile implements Outputer {
+public class PrintInFile extends PrintSpiral implements Outputer {
 
     /**
      * Method prints a matrix to a file
@@ -13,6 +13,6 @@ public class PrintInFile implements Outputer {
     @Override
     public void print(int[][] a) throws IOException {
         PrintStream fileWriter = new PrintStream("File.txt");
-        PrintSpiral.resultOutput(a, fileWriter);
+        fileWriter.print(resultOutput(a));
     }
 }

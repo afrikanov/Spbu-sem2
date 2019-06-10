@@ -2,14 +2,14 @@ package task3.hw2.afrikanov;
 
 import java.io.PrintStream;
 
-public class PrintSpiral<T> {
+public class PrintSpiral {
 
     /**
      * Method makes a string from a matrix in a spiral
      * @param a - certain matrix
      * @return a string if numbers in a current order
      */
-    public static void resultOutput(int[][] a, PrintStream stream) {
+    public static String resultOutput(int[][] a) {
         int posI = a.length / 2;
         int posJ = a[0].length / 2;
         StringBuilder current = new StringBuilder();
@@ -46,6 +46,6 @@ public class PrintSpiral<T> {
             ++j;
             k += 2;
         }
-        stream.print(current);
+        return current.toString();
     }
 }
