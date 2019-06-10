@@ -1,9 +1,9 @@
 package task3.hw2.afrikanov;
 
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 
-public class PrintInFile<T> implements Outputer<T> {
+public class PrintInFile implements Outputer {
 
     /**
      * Method prints a matrix to a file
@@ -11,10 +11,8 @@ public class PrintInFile<T> implements Outputer<T> {
      * @throws IOException when attempt to write in a file failed
      */
     @Override
-    public void print(T[][] a) throws IOException {
-        FileWriter writer = new FileWriter("File.txt");
-        PrintSpiral printer = new PrintSpiral();
-        writer.write(printer.resultOutput(a));
-        writer.close();
+    public void print(int[][] a) throws IOException {
+        PrintStream fileWriter = new PrintStream("File.txt");
+        PrintSpiral.resultOutput(a, fileWriter);
     }
 }

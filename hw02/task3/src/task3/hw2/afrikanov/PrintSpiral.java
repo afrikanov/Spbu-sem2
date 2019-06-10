@@ -1,5 +1,7 @@
 package task3.hw2.afrikanov;
 
+import java.io.PrintStream;
+
 public class PrintSpiral<T> {
 
     /**
@@ -7,7 +9,7 @@ public class PrintSpiral<T> {
      * @param a - certain matrix
      * @return a string if numbers in a current order
      */
-    String resultOutput(T[][] a) {
+    public static void resultOutput(int[][] a, PrintStream stream) {
         int posI = a.length / 2;
         int posJ = a[0].length / 2;
         StringBuilder current = new StringBuilder();
@@ -44,6 +46,6 @@ public class PrintSpiral<T> {
             ++j;
             k += 2;
         }
-        return String.valueOf(current);
+        stream.print(current);
     }
 }

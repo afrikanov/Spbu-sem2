@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class OutputerTest {
 
     @Test
-    void printOneElementInColsole() throws IOException {
+    public void printOneElementInColsole() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         System.setOut(new PrintStream(actual));
-        Integer[][] arrayStart = {{10}};
+        int[][] arrayStart = {{10}};
         Outputer output = new PrintInConsole();
         output.print(arrayStart);
         String expecteds = "10 ";
@@ -22,10 +22,10 @@ class OutputerTest {
     }
 
     @Test
-    void printInConsole() throws IOException {
+    public void printInConsole() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         System.setOut(new PrintStream(actual));
-        Integer[][] arrayStart = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        int[][] arrayStart = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         Outputer output = new PrintInConsole();
         output.print(arrayStart);
         String expecteds = "5 6 3 2 1 4 7 8 9 ";
@@ -34,7 +34,7 @@ class OutputerTest {
 
     @Test
     public void printInFile() throws IOException {
-        Character[][] arrayStart = {{'1', '2', '3', '4', '5'}, {'1', '2', '3', '4', '5'}, {'1', '2', '3', '4', '5'}, {'1', '2', '3', '4', '5'}, {'1', '2', '3', '4', '5'}};
+        int[][] arrayStart = {{1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}};
         Outputer output = new PrintInFile();
         output.print(arrayStart);
         Scanner file = new Scanner(new File("File.txt"));
