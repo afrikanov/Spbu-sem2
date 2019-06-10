@@ -172,7 +172,7 @@ public class Controller {
         }
     }
 
-    /** Method ends the game and makes buttons unable to be clicked*/
+    /** Method ends the game and makes buttons unable to be clicked */
     private static void endGame() {
         buttons.stream().peek(e -> e.stream().peek(element -> element.setDisable(true)).collect(Collectors.toList())).collect(Collectors.toList());
     }
