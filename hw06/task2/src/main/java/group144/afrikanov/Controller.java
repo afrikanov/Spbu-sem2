@@ -4,10 +4,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.security.cert.CollectionCertStoreParameters;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /** Controller for Sample.fxml file */
 public class Controller {
 
     private char signWill = 'X';
+    private static final int SIZE = 3;
 
     @FXML
     private Label winner;
@@ -39,7 +47,7 @@ public class Controller {
     @FXML
     private Button button9;
 
-    private Button[][] buttons;
+    private static List<List<Button> > buttons;
     private static Character[][] buttonValue;
 
     /**
@@ -73,7 +81,7 @@ public class Controller {
                     equals++;
                 }
             }
-            if (equals == 2) {
+            if (equals == SIZE - 1) {
                 return signOnStep;
             }
         }
@@ -88,7 +96,7 @@ public class Controller {
                     equals++;
                 }
             }
-            if (equals == 2) {
+            if (equals == SIZE - 1) {
                 return signOnStep;
             }
         }
@@ -100,7 +108,7 @@ public class Controller {
                     equals++;
                 }
             }
-            if (equals == 3) {
+            if (equals == SIZE) {
                 return signOnStep;
             }
             equals = 0;
@@ -109,7 +117,7 @@ public class Controller {
                     equals++;
                 }
             }
-            if (equals == 3) {
+            if (equals == SIZE) {
                 return signOnStep;
             }
         }
@@ -121,7 +129,7 @@ public class Controller {
                 }
             }
         }
-        if (steps == 9) {
+        if (steps == SIZE * SIZE) {
             return 'D';
         }
         return ' ';
@@ -132,10 +140,11 @@ public class Controller {
     private void fieldClick(ActionEvent event) {
         if (event.getSource() instanceof Button) {
             Button button = (Button) event.getSource();
-            int iPosition = -1, jPosition = -1;
-            for (int i = 0; i < 3; ++i) {
-                for (int j = 0; j < 3; ++j) {
-                    if (buttons[i][j] == button) {
+            int iPosition = -1;
+            int jPosition = -1;
+            for (int i = 0; i < SIZE; ++i) {
+                for (int j = 0; j < SIZE; ++j) {
+                    if (buttons.get(i).get(j) == button) {
                         iPosition = i;
                         jPosition = j;
                         break;
@@ -147,7 +156,7 @@ public class Controller {
                 signNow = String.valueOf(signWill);
                 signWill = changeSign(signWill);
                 button.setText(signNow);
-                buttons[iPosition][jPosition].setText(String.valueOf(signNow));
+                buttons.get(iPosition).get(jPosition).setText(String.valueOf(signNow));
                 buttonValue[iPosition][jPosition] = signNow.charAt(0);
             }
             Character winSign = isVictory(buttonValue);
@@ -164,20 +173,16 @@ public class Controller {
     }
 
     /** Method ends the game and makes buttons unable to be clicked*/
-    private void endGame() {
-        for (int i = 0; i < buttons.length; ++i) {
-            for (int j = 0; j < buttons.length; ++j) {
-                buttons[i][j].setDisable(true);
-            }
-        }
+    private static void endGame() {
+        buttons.stream().peek(e -> e.stream().peek(element -> element.setDisable(true)).collect(Collectors.toList())).collect(Collectors.toList());
     }
 
     /** Method returns all fields to the initial condition */
     @FXML
     private void newGame(ActionEvent actionEvent) {
-        for (int i = 0; i < buttons.length; ++i) {
-            for (int j = 0; j < buttons.length; ++j) {
-                buttons[i][j].setText(String.valueOf(' '));
+        for (int i = 0; i < buttons.size(); ++i) {
+            for (int j = 0; j < buttons.size(); ++j) {
+                buttons.get(i).get(j).setText(String.valueOf(' '));
             }
         }
         for (int i = 0; i < buttonValue.length; ++i) {
@@ -187,9 +192,9 @@ public class Controller {
         }
         signWill = 'X';
         winner.setText("The game is in progress");
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                buttons[i][j].setDisable(false);
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                buttons.get(i).get(j).setDisable(false);
             }
         }
     }
@@ -197,10 +202,10 @@ public class Controller {
     /** Initialization method */
     @FXML
     private void initialize() {
-        buttons = new Button[][]
-                {{button1, button2, button3},
-                {button4, button5, button6},
-                {button7, button8, button9}};
+        buttons = new ArrayList<>();
+        buttons.add(Arrays.asList(button1, button2, button3));
+        buttons.add(Arrays.asList(button4, button5, button6));
+        buttons.add(Arrays.asList(button7, button8, button9));
         buttonValue = new Character[][]
                 {{' ', ' ', ' '},
                 {' ', ' ', ' '},
