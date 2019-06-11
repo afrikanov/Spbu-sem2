@@ -1,6 +1,6 @@
 package task3.hw2.afrikanov;
 
-import java.io.PrintStream;
+import java.io.IOException;
 
 public class PrintSpiral {
 
@@ -9,43 +9,41 @@ public class PrintSpiral {
      * @param a - certain matrix
      * @return a string if numbers in a current order
      */
-    public static String resultOutput(int[][] a) {
+    public static void resultOutput(int[][] a, Outputer printer) throws IOException {
         int posI = a.length / 2;
         int posJ = a[0].length / 2;
-        StringBuilder current = new StringBuilder();
-        current.append(a[posI][posJ]).append(" ");
+        printer.printElement(a[posI][posJ] + " ");
         ++posJ;
         int k = 2;
         while (posI < a.length && posJ < a.length) {
             int i = posI, j = posJ;
             for (i = posI; i > posI - k; --i) {
-                current.append(a[i][j]).append(" ");
+                printer.printElement(a[i][j] + " ");
             }
             i++;
             j--;
             posI = i;
             posJ = j;
             for (j = posJ; j > posJ - k; --j) {
-                current.append(a[i][j]).append(" ");
+                printer.printElement(a[i][j] + " ");
             }
             j++;
             i++;
             posJ = j;
             posI = i;
             for (i = posI; i < posI + k; ++i) {
-                current.append(a[i][j]).append(" ");
+                printer.printElement(a[i][j] + " ");
             }
             i--;
             j++;
             posJ = j;
             posI = i;
             for (j = posJ; j < posJ + k; ++j) {
-                current.append(a[i][j]).append(" ");
+                printer.printElement(a[i][j] + " ");
             }
             posJ = j;
             ++j;
             k += 2;
         }
-        return current.toString();
     }
 }

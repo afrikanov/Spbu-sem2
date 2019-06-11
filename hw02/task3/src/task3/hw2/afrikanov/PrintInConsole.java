@@ -1,16 +1,20 @@
 package task3.hw2.afrikanov;
 
-import java.io.PrintStream;
+import java.io.IOException;
 
-public class PrintInConsole extends PrintSpiral implements Outputer {
+public class PrintInConsole implements Outputer {
 
     /**
      * Method prints a matrix to console
      * @param a - certain matrix
      */
     @Override
-    public void print(int[][] a) {
-        PrintStream consoleWriter = new PrintStream(System.out);
-        consoleWriter.print(resultOutput(a));
+    public void printArray(int[][] a) throws IOException {
+        PrintSpiral.resultOutput(a, this);
+    }
+
+    @Override
+    public void printElement(String element) throws IOException {
+        System.out.print(element);
     }
 }

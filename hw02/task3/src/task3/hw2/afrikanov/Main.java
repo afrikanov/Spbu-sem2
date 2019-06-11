@@ -20,11 +20,11 @@ public class Main {
         int select = input.nextInt();
         if (select == 1) {
             Outputer out = new PrintInConsole();
-            out.print(a);
+            out.printArray(a);
         }
         else if (select == 2) {
             Outputer out = new PrintInFile();
-            out.print(a);
+            out.printArray(a);
         }
         input.close();
     }
