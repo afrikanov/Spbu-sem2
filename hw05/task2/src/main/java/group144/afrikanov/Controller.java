@@ -36,23 +36,20 @@ public class Controller {
         SpinnerValueFactory<Integer> valuesSecond = new SpinnerValueFactory.IntegerSpinnerValueFactory(-9, 9, 0);
         firstOperand.setValueFactory(valuesFirst);
         secondOperand.setValueFactory(valuesSecond);
-        ChangeListener changeListener = new ChangeListener() {
-
-            /** Method changes the result of the expression when situation changes */
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                String answer = count(firstOperand.getValue(), secondOperand.getValue(), operator.getValue());
-                if (answer != null) {
-                    result.setText(answer);
-                }
-                else {
-                    result.setText("Wrong");
-                }
-            }
-        };
+        ChangeListener changeListener = (observable, oldValue, newValue) -> changed();
         operator.getSelectionModel().selectedItemProperty().addListener(changeListener);
         firstOperand.valueProperty().addListener(changeListener);
         secondOperand.valueProperty().addListener(changeListener);
+    }
+
+    private void changed() {
+        String answer = count(firstOperand.getValue(), secondOperand.getValue(), operator.getValue());
+        if (answer != null) {
+            result.setText(answer);
+        }
+        else {
+            result.setText("Wrong");
+        }
     }
 
     /**
