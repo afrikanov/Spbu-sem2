@@ -8,6 +8,7 @@ import java.security.cert.CollectionCertStoreParameters;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -174,7 +175,7 @@ public class Controller {
 
     /** Method ends the game and makes buttons unable to be clicked */
     private static void endGame() {
-        buttons.stream().peek(e -> e.stream().peek(element -> element.setDisable(true)).collect(Collectors.toList())).collect(Collectors.toList());
+        buttons.forEach(e -> e.forEach(p -> p.setDisable(true)));
     }
 
     /** Method returns all fields to the initial condition */
