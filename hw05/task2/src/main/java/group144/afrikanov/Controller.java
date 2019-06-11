@@ -32,12 +32,12 @@ public class Controller {
         ObservableList<Character> items = FXCollections.observableArrayList('+', '-', '*', '/');
         operator.setItems(items);
         operator.setValue('+');
-        SpinnerValueFactory<Integer> valuesFirst = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 9, 0);
-        SpinnerValueFactory<Integer> valuesSecond = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 9, 0);
+        SpinnerValueFactory<Integer> valuesFirst = new SpinnerValueFactory.IntegerSpinnerValueFactory(-9, 9, 0);
+        SpinnerValueFactory<Integer> valuesSecond = new SpinnerValueFactory.IntegerSpinnerValueFactory(-9, 9, 0);
         firstOperand.setValueFactory(valuesFirst);
         secondOperand.setValueFactory(valuesSecond);
         ChangeListener changeListener = new ChangeListener() {
-            
+
             /** Method changes the result of the expression when situation changes */
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
