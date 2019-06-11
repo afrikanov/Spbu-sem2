@@ -77,12 +77,12 @@ public class Controller {
         stack.add(String.valueOf(inputNumber));
         if (operator.equals("$")) {
             firstOperand = firstOperand * 10;
-            firstOperand = (firstOperand > 0 ? firstOperand + inputNumber : firstOperand - inputNumber);
+            firstOperand = (firstOperand >= 0 ? firstOperand + inputNumber : firstOperand - inputNumber);
             return firstOperand;
         }
         else {
             secondOperand = secondOperand * 10;
-            secondOperand = (secondOperand > 0 ? secondOperand + inputNumber : secondOperand - inputNumber);
+            secondOperand = (secondOperand >= 0 ? secondOperand + inputNumber : secondOperand - inputNumber);
             return secondOperand;
         }
     }
