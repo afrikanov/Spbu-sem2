@@ -1,90 +1,51 @@
 package group144.afrikanov;
 
-/**
- * Class for operating with expression tree
- */
+import java.util.Scanner;
+
+/** Class for operating with expression tree */
 class ExpressionTree {
 
     private Node root;
 
-    /**
-     * Method creates an expression tree.
-     * @param expression - the input expression
-     * @throws InvalidTreeException if your expression is an invalid brackets sequence.
-     */
-    ExpressionTree(String expression) throws InvalidTreeException {
-        String expression1 = upgradeString(expression);
-        if (correctBracketSequence(expression1)) {
-            root = new Operator(expression1);
-        }
-        else {
-            throw new InvalidTreeException();
-        }
+    public ExpressionTree(Node root) {
+        this.root = root;
     }
 
-    /**
-     * Method calculates your expression
-     * @return result of an expression
-     * @throws InvalidTreeException if your expression tree is incorrect (the tree has a incorrect symbol)
-     */
-    int calculate() throws InvalidTreeException {
+    public ExpressionTree(Scanner expression) {
+        root = new Operator(expression.next().charAt(1));
+        buildTree(expression, (Operator) root);
+    }
+
+    /** A method that calculates expression */
+    public int calculate() {
         return root.calculate();
     }
 
-    /**
-     * Method prints your expression tree
-     */
-    void print() {
+    /** A method that prints tree */
+    public void print() {
         root.print();
     }
 
-    /**
-     * Method checks if the expression is the correct brackets sequence
-     * @param expression - the input expression
-     * @return true if the expression is a correct brackets sequence, false otherwise
-     */
-    private boolean correctBracketSequence(String expression) {
-        int amount = 0;
-        char[] charArray = expression.toCharArray();
-        for (int i = 0; i < charArray.length; i++) {
-            char element = charArray[i];
-            if (element == '(') {
-                ++amount;
-            }
-            if (element == ')') {
-                --amount;
-            }
-            if (amount < 0) {
-                return false;
-            }
+    /** Method builds an expression tree */
+    private void buildTree(Scanner expression, Operator node) {
+        String leftSymbol = expression.next();
+        if (!hasInteger(leftSymbol)) {
+            node.setLeft(new Operator(leftSymbol.charAt(1)));
+            buildTree(expression, (Operator) node.getLeft());
+        } else {
+            node.setLeft(new Operand(leftSymbol));
         }
-        return amount == 0;
+        String rightSymbol = expression.next();
+        if (!hasInteger(rightSymbol)) {
+            node.setRight(new Operator(rightSymbol.charAt(1)));
+            buildTree(expression, (Operator) node.getRight());
+        } else {
+            node.setRight(new Operand(rightSymbol));
+        }
     }
 
-    /**
-     * Method changes a started string to a certain format
-     * @param oldString - the input string, which will be changed
-     * @return formatted String
-     */
-    private String upgradeString(String oldString) {
-        StringBuilder newString = new StringBuilder();
-        for (int i = 0; i < oldString.length(); ++i) {
-            if (oldString.charAt(i) != ' ') {
-                if (oldString.charAt(i) >= '0' && oldString.charAt(i) <= '9') {
-                    StringBuilder newInteger = new StringBuilder(String.valueOf(oldString.charAt(i)));
-                    ++i;
-                    while (i < oldString.length() && oldString.charAt(i) >= '0' && oldString.charAt(i) <= '9') {
-                        newInteger.append(String.valueOf(oldString.charAt(i)));
-                        ++i;
-                    }
-                    --i;
-                    newString.append(newInteger).append(" ");
-                }
-                else {
-                    newString.append(String.valueOf(oldString.charAt(i))).append(" ");
-                }
-            }
-        }
-        return newString.toString();
+    /** Method checks if an expression has a digit */
+    private boolean hasInteger(String expression) {
+        return expression.charAt(0) >= '0' && expression.charAt(0) <= '9';
     }
 }

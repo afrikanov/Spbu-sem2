@@ -1,43 +1,31 @@
 package group144.afrikanov;
 
-import static java.lang.Integer.parseInt;
+public class Operand implements Node {
 
-public class Operand extends Node {
+    private int value;
 
-    Operand(String value) {
+    public Operand(int value) {
         this.value = value;
     }
 
-    /*** Method prints a value in a node */
+    public Operand(String inputString) {
+        if (inputString.charAt(inputString.length() - 1) >= '0' &&
+                inputString.charAt(inputString.length() - 1) <= '9') {
+            value = Integer.parseInt(inputString);
+        } else {
+            value = Integer.parseInt(inputString.substring(0, inputString.indexOf(')')));
+        }
+    }
+
+    /** A method that calculates value of the node */
+    @Override
+    public int calculate() {
+        return value;
+    }
+
+    /** A method that prints the node */
     @Override
     public void print() {
         System.out.print(value);
-    }
-
-    /**
-     * @return a value in a node
-     * @throws InvalidTreeException if the tree is invalid
-     */
-    @Override
-    public int calculate() throws InvalidTreeException {
-        if (isNumber(value)) {
-            return parseInt(value);
-        } else {
-            throw new InvalidTreeException();
-        }
-    }
-
-    /**
-     * Method checks if the string can be converted in number. Returns true if can, false otherwise.
-     * @param isNumberValue - string that tries to be converted to number
-     */
-    private boolean isNumber(String isNumberValue) {
-        try  {
-            Integer.parseInt(isNumberValue);
-            return true;
-        }
-        catch (NumberFormatException exception) {
-            return false;
-        }
     }
 }
