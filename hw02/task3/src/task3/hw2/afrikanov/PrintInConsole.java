@@ -1,6 +1,7 @@
 package task3.hw2.afrikanov;
 
 import java.io.IOException;
+import java.io.PrintStream;
 
 public class PrintInConsole implements Outputer {
 
@@ -10,11 +11,6 @@ public class PrintInConsole implements Outputer {
      */
     @Override
     public void printArray(int[][] a) throws IOException {
-        PrintSpiral.resultOutput(a, this);
-    }
-
-    @Override
-    public void printElement(String element) throws IOException {
-        System.out.print(element);
+        PrintSpiral.resultOutput(a, new PrintStream(System.out));
     }
 }

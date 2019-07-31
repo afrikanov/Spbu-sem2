@@ -11,11 +11,4 @@ public interface Outputer  {
      * @throws IOException when attempt to write in a file failed
      */
     void printArray(int[][] a) throws IOException;
-
-    /**
-     * Prints one element
-     * @param currentElement - a certain string
-     * @throws IOException when attempt to write in a file failed
-     */
-    void printElement(String currentElement) throws IOException;
 }

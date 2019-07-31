@@ -18,12 +18,13 @@ public class Main {
         System.out.println("Write 1 if you want to write the matrix in console");
         System.out.println("Write 2 if you want to write the matrix in file");
         int select = input.nextInt();
+        Outputer out;
         if (select == 1) {
-            Outputer out = new PrintInConsole();
+            out = new PrintInConsole();
             out.printArray(a);
         }
         else if (select == 2) {
-            Outputer out = new PrintInFile();
+            out = new PrintInFile();
             out.printArray(a);
         }
         input.close();
